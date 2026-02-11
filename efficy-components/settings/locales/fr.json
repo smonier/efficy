@@ -1,0 +1,188 @@
+{
+  "demandes": {
+    "title": "Mes demandes",
+    "loading": "Chargement des demandes...",
+    "empty": "Aucune demande disponible pour cet utilisateur.",
+    "errors": {
+      "load": "Impossible de charger les demandes.",
+      "unexpected": "Erreur inattendue"
+    },
+    "actions": {
+      "refresh": "Rafraichir",
+      "retry": "Reessayer",
+      "new": "Nouvelle demande",
+      "cancel": "Annuler",
+      "submit": "Creer la demande",
+      "creating": "Creation..."
+    },
+    "table": {
+      "code": "Code",
+      "type": "Type",
+      "status": "Statut",
+      "assignedTo": "Assigné à",
+      "createdOn": "Créée le",
+      "priority": "Priorité",
+      "actions": "Actions"
+    },
+    "details": {
+      "back": "Retour a la liste",
+      "title": "Demande {{id}}",
+      "description": "Description",
+      "info": "Informations",
+      "attachments": "Pieces jointes",
+      "loadingAttachments": "Chargement des pieces jointes...",
+      "noAttachments": "Aucune piece jointe.",
+      "download": "Telecharger",
+      "downloading": "Telechargement...",
+      "open": "Voir le detail",
+      "errors": {
+        "load": "Impossible de charger le detail de la demande.",
+        "download": "Impossible de telecharger la piece jointe."
+      }
+    },
+    "create": {
+      "title": "Creer une demande",
+      "subtitle": "Soumettez votre demande avec votre profil client Efficy.",
+      "loadingOptions": "Chargement des options du formulaire...",
+      "fields": {
+        "category": "Categorie",
+        "priority": "Priorite",
+        "description": "Description",
+        "attachment": "Piece jointe"
+      },
+      "placeholders": {
+        "category": "Selectionnez une categorie",
+        "priority": "Selectionnez une priorite",
+        "description": "Decrivez votre demande"
+      },
+      "selectedFile": "Fichier selectionne : {{name}}",
+      "errors": {
+        "required": "La categorie et la description sont obligatoires.",
+        "failed": "Impossible de creer la demande.",
+        "attachMissingDemande": "La demande est creee mais son identifiant est introuvable pour attacher le fichier.",
+        "attachUpload": "Impossible de televerser la piece jointe.",
+        "attachLink": "Piece jointe televersee, mais liaison a la demande impossible."
+      }
+    }
+  },
+  "profile": {
+    "title": "Mon profil",
+    "subtitle": "Gerez vos preferences de communication.",
+    "loading": "Chargement du profil...",
+    "identity": {
+      "title": "Identite",
+      "name": "Nom",
+      "email": "Email"
+    },
+    "details": {
+      "title": "Informations completes du profil",
+      "show": "Tout afficher",
+      "hide": "Masquer le detail",
+      "empty": "Aucune information supplementaire disponible.",
+      "contact": "Contact",
+      "address": "Adresse",
+      "other": "Autres informations",
+      "fields": {
+        "phone": "Telephone",
+        "mobile": "Mobile",
+        "fax": "Fax",
+        "title": "Fonction",
+        "status": "Statut",
+        "company": "Societe",
+        "birthDate": "Date de naissance",
+        "clientNumber": "Numero client",
+        "loyaltyScore": "Score fidelite"
+      }
+    },
+    "preferences": {
+      "title": "Preferences",
+      "subscriptions": "Abonnements",
+      "consents": "Consents",
+      "media": "Media prefere",
+      "empty": "Aucune option disponible."
+    },
+    "actions": {
+      "save": "Enregistrer les preferences",
+      "saving": "Enregistrement...",
+      "retry": "Reessayer"
+    },
+    "feedback": {
+      "saved": "Preferences enregistrees."
+    },
+    "errors": {
+      "load": "Impossible de charger le profil.",
+      "save": "Impossible d enregistrer les preferences."
+    }
+  },
+  "documents": {
+    "title": "Mes documents",
+    "subtitle": "Televersez des documents et liez les a votre profil ou a une demande.",
+    "loading": "Chargement des documents...",
+    "empty": "Aucun document disponible pour ce profil.",
+    "table": {
+      "name": "Nom",
+      "createdOn": "Cree le",
+      "type": "Type",
+      "size": "Taille",
+      "actions": "Actions"
+    },
+    "actions": {
+      "refresh": "Rafraichir",
+      "retry": "Reessayer",
+      "upload": "Televerser un document",
+      "uploading": "Televersement...",
+      "submit": "Attacher le document",
+      "cancel": "Annuler",
+      "download": "Telecharger",
+      "downloading": "Telechargement..."
+    },
+    "upload": {
+      "title": "Attacher un document",
+      "fields": {
+        "file": "Fichier",
+        "target": "Attacher a",
+        "demande": "Demande"
+      },
+      "targets": {
+        "demande": "Une demande",
+        "profile": "Mon profil"
+      },
+      "selectDemande": "Selectionnez une demande"
+    },
+    "feedback": {
+      "uploaded": "Document televerse avec succes."
+    },
+    "errors": {
+      "load": "Impossible de charger les documents.",
+      "upload": "Impossible de televerser le document.",
+      "download": "Impossible de telecharger le document.",
+      "requiredFile": "Veuillez selectionner un fichier.",
+      "requiredDemande": "Veuillez selectionner une demande."
+    }
+  },
+  "kb": {
+    "title": "Base de connaissance",
+    "subtitle": "Consultez les FAQ publiees depuis Efficy.",
+    "loading": "Chargement des FAQ...",
+    "empty": "Aucune FAQ disponible.",
+    "noMatch": "Aucune FAQ ne correspond a votre recherche ou a votre filtre.",
+    "search": {
+      "placeholder": "Rechercher un mot-cle"
+    },
+    "filters": {
+      "all": "Tous les sujets"
+    },
+    "faq": {
+      "untitled": "Question sans titre",
+      "noContent": "Aucune reponse disponible."
+    },
+    "actions": {
+      "refresh": "Rafraichir",
+      "retry": "Reessayer",
+      "clearSearch": "Effacer"
+    },
+    "errors": {
+      "load": "Impossible de charger la base de connaissance."
+    }
+  }
+}

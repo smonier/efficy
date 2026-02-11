@@ -1,0 +1,258 @@
+.root {
+  width: 100%;
+}
+
+.loadingFallback {
+  border: 1px solid #d8dee7;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  background: #fbfdff;
+  color: #344054;
+  font-size: 0.95rem;
+}
+
+.container {
+  border: 1px solid #d8dee7;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  background: linear-gradient(180deg, #fbfdff 0%, #f6f9fc 100%);
+  color: #0b1b34;
+  box-shadow: 0 10px 24px -20px rgb(11 27 52 / 35%);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.subtitle {
+  margin: 0.3rem 0 0;
+  color: #445b7f;
+  font-size: 0.88rem;
+}
+
+.headerActions {
+  display: flex;
+  gap: 0.55rem;
+}
+
+.refreshButton,
+.retryButton,
+.clearButton {
+  border: 1px solid #0f4da8;
+  background: #0f4da8;
+  color: #fff;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1;
+  padding: 0.55rem 0.8rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.refreshButton:hover,
+.retryButton:hover,
+.clearButton:hover {
+  background: #093a82;
+}
+
+.buttonContent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.buttonIcon {
+  font-size: 0.92em;
+  line-height: 1;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 0.9rem;
+}
+
+.searchField {
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.searchInput {
+  width: 100%;
+  border: 1px solid #bfd0eb;
+  border-radius: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
+  background: #fff;
+  color: #0b1b34;
+}
+
+.tagFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.tagButton {
+  border: 1px solid #c7d7ef;
+  background: #fff;
+  color: #1f3f6a;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.tagButton:hover {
+  background: #f2f7ff;
+}
+
+.tagButtonActive {
+  border-color: #0f4da8;
+  background: #eaf3ff;
+  color: #0f3f87;
+}
+
+.loadingState {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 1rem;
+  border: 1px solid #d8dee7;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 2px solid #c7d5ea;
+  border-top-color: #0f4da8;
+  animation: spin 0.8s linear infinite;
+}
+
+.errorState {
+  border: 1px solid #f3c3bf;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  background: #fff7f6;
+  color: #8a2121;
+}
+
+.errorMessage {
+  margin: 0.45rem 0 0.75rem;
+  color: #ba2f2f;
+}
+
+.emptyState {
+  border: 1px dashed #b8c6dd;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  background: #ffffff;
+  color: #344054;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.faqCard {
+  border: 1px solid #d8dee7;
+  border-radius: 0.75rem;
+  background: #fff;
+  overflow: hidden;
+}
+
+.questionButton {
+  width: 100%;
+  border: 0;
+  background: #fff;
+  color: #0b1b34;
+  font-size: 0.93rem;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.8rem 0.9rem;
+  cursor: pointer;
+}
+
+.questionButton:hover {
+  background: #f8fbff;
+}
+
+.answer {
+  border-top: 1px solid #e6ecf5;
+  padding: 0.8rem 0.9rem;
+  font-size: 0.88rem;
+  color: #243f63;
+  line-height: 1.45;
+}
+
+.answer p {
+  margin: 0;
+}
+
+.answer p + p {
+  margin-top: 0.45rem;
+}
+
+.answerEmpty {
+  margin: 0;
+  color: #445b7f;
+}
+
+.cardTags {
+  border-top: 1px solid #e6ecf5;
+  padding: 0.6rem 0.9rem 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  background: #f2f7ff;
+  color: #1f3f6a;
+  border: 1px solid #d3e2f8;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  padding: 0.25rem 0.55rem;
+}
+
+@media (max-width: 860px) {
+  .header {
+    flex-wrap: wrap;
+  }
+
+  .searchField {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .clearButton {
+    width: fit-content;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

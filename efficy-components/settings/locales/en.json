@@ -1,0 +1,188 @@
+{
+  "demandes": {
+    "title": "My requests",
+    "loading": "Loading requests...",
+    "empty": "No request available for this user.",
+    "errors": {
+      "load": "Unable to load requests.",
+      "unexpected": "Unexpected error"
+    },
+    "actions": {
+      "refresh": "Refresh",
+      "retry": "Retry",
+      "new": "New request",
+      "cancel": "Cancel",
+      "submit": "Create request",
+      "creating": "Creating..."
+    },
+    "table": {
+      "code": "Code",
+      "type": "Type",
+      "status": "Status",
+      "assignedTo": "Assigned to",
+      "createdOn": "Created on",
+      "priority": "Priority",
+      "actions": "Actions"
+    },
+    "details": {
+      "back": "Back to list",
+      "title": "Request {{id}}",
+      "description": "Description",
+      "info": "Information",
+      "attachments": "Attachments",
+      "loadingAttachments": "Loading attachments...",
+      "noAttachments": "No attachment.",
+      "download": "Download",
+      "downloading": "Downloading...",
+      "open": "View details",
+      "errors": {
+        "load": "Unable to load request details.",
+        "download": "Unable to download the attachment."
+      }
+    },
+    "create": {
+      "title": "Create a request",
+      "subtitle": "Submit your request using your Efficy customer profile.",
+      "loadingOptions": "Loading form options...",
+      "fields": {
+        "category": "Category",
+        "priority": "Priority",
+        "description": "Description",
+        "attachment": "Attachment"
+      },
+      "placeholders": {
+        "category": "Select a category",
+        "priority": "Select a priority",
+        "description": "Describe your request"
+      },
+      "selectedFile": "Selected file: {{name}}",
+      "errors": {
+        "required": "Category and description are required.",
+        "failed": "Unable to create the request.",
+        "attachMissingDemande": "The request was created but could not be identified for file attachment.",
+        "attachUpload": "Unable to upload the attachment.",
+        "attachLink": "Attachment uploaded but linking it to the request failed."
+      }
+    }
+  },
+  "profile": {
+    "title": "My profile",
+    "subtitle": "Manage your communication preferences.",
+    "loading": "Loading profile...",
+    "identity": {
+      "title": "Identity",
+      "name": "Name",
+      "email": "Email"
+    },
+    "details": {
+      "title": "Full profile information",
+      "show": "Show all",
+      "hide": "Hide details",
+      "empty": "No additional information available.",
+      "contact": "Contact",
+      "address": "Address",
+      "other": "Other information",
+      "fields": {
+        "phone": "Phone",
+        "mobile": "Mobile",
+        "fax": "Fax",
+        "title": "Title",
+        "status": "Status",
+        "company": "Company",
+        "birthDate": "Birth date",
+        "clientNumber": "Client number",
+        "loyaltyScore": "Loyalty score"
+      }
+    },
+    "preferences": {
+      "title": "Preferences",
+      "subscriptions": "Subscriptions",
+      "consents": "Consents",
+      "media": "Preferred media",
+      "empty": "No option available."
+    },
+    "actions": {
+      "save": "Save preferences",
+      "saving": "Saving...",
+      "retry": "Retry"
+    },
+    "feedback": {
+      "saved": "Preferences saved."
+    },
+    "errors": {
+      "load": "Unable to load profile.",
+      "save": "Unable to save preferences."
+    }
+  },
+  "documents": {
+    "title": "My documents",
+    "subtitle": "Upload documents and link them to your profile or a request.",
+    "loading": "Loading documents...",
+    "empty": "No document available for this profile.",
+    "table": {
+      "name": "Name",
+      "createdOn": "Created on",
+      "type": "Type",
+      "size": "Size",
+      "actions": "Actions"
+    },
+    "actions": {
+      "refresh": "Refresh",
+      "retry": "Retry",
+      "upload": "Upload document",
+      "uploading": "Uploading...",
+      "submit": "Attach document",
+      "cancel": "Cancel",
+      "download": "Download",
+      "downloading": "Downloading..."
+    },
+    "upload": {
+      "title": "Attach a document",
+      "fields": {
+        "file": "File",
+        "target": "Attach to",
+        "demande": "Request"
+      },
+      "targets": {
+        "demande": "A request",
+        "profile": "My profile"
+      },
+      "selectDemande": "Select a request"
+    },
+    "feedback": {
+      "uploaded": "Document uploaded successfully."
+    },
+    "errors": {
+      "load": "Unable to load documents.",
+      "upload": "Unable to upload the document.",
+      "download": "Unable to download the document.",
+      "requiredFile": "Please select a file.",
+      "requiredDemande": "Please select a request."
+    }
+  },
+  "kb": {
+    "title": "Knowledge base",
+    "subtitle": "Browse published FAQ answers from Efficy.",
+    "loading": "Loading FAQ entries...",
+    "empty": "No FAQ entry available.",
+    "noMatch": "No FAQ matches your search or selected topic.",
+    "search": {
+      "placeholder": "Search by keyword"
+    },
+    "filters": {
+      "all": "All topics"
+    },
+    "faq": {
+      "untitled": "Untitled question",
+      "noContent": "No response content available."
+    },
+    "actions": {
+      "refresh": "Refresh",
+      "retry": "Retry",
+      "clearSearch": "Clear"
+    },
+    "errors": {
+      "load": "Unable to load the knowledge base."
+    }
+  }
+}

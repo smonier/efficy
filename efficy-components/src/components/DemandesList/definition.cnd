@@ -1,0 +1,7 @@
+<jnt = 'http://www.jahia.org/jahia/nt/1.0'>
+<jmix = 'http://www.jahia.org/jahia/mix/1.0'>
+<efficycomponents = 'https://example.com/efficy-components/nt/1.0'>
+<efficycomponentsmix = 'https://example.com/efficy-components/mix/1.0'>
+
+[efficycomponents:demandesList] > jnt:content, mix:title, efficycomponentsmix:component
+ - pageSize (long) = 20
