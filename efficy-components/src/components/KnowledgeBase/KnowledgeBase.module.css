@@ -12,12 +12,20 @@
 }
 
 .container {
+  --efficy-primary-token: var(--portal-color-primary, var(--color-primary, var(--primary, var(--primary-dark))));
+  --efficy-on-primary-token: var(--portal-color-on-primary, var(--color-primary-foreground, var(--primary-foreground, #fff)));
+  --efficy-font-family: var(--font-family, var(--bs-body-font-family, inherit));
+  --efficy-secondary-border: var(--secondary-border, #c5d0e4);
+  --efficy-secondary-bg: var(--secondary-bg, #fff);
+  --efficy-secondary-text: var(--secondary-text, #15345d);
+  --efficy-secondary-hover-bg: var(--secondary-hover-bg, #f6f9ff);
   border: 1px solid #d8dee7;
   border-radius: 1rem;
   padding: 1.25rem;
   background: linear-gradient(180deg, #fbfdff 0%, #f6f9fc 100%);
   color: #0b1b34;
   box-shadow: 0 10px 24px -20px rgb(11 27 52 / 35%);
+  font-family: var(--efficy-font-family);
 }
 
 .header {
@@ -48,23 +56,25 @@
 .refreshButton,
 .retryButton,
 .clearButton {
-  border: 1px solid #0f4da8;
-  background: #0f4da8;
-  color: #fff;
+  border: 1px solid var(--efficy-primary-token);
+  background: var(--efficy-primary-token);
+  color: var(--efficy-on-primary-token);
   border-radius: 0.5rem;
-  font-size: 0.875rem;
+  font-size: var(--button-font-size, 0.875rem);
   line-height: 1;
   padding: 0.55rem 0.8rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition: filter 120ms ease;
+  font-family: inherit;
 }
 
 .refreshButton:hover,
 .retryButton:hover,
 .clearButton:hover {
-  background: #093a82;
+  filter: brightness(0.92);
 }
 
 .buttonContent {
@@ -122,9 +132,9 @@
 }
 
 .tagButtonActive {
-  border-color: #0f4da8;
+  border-color: var(--efficy-primary-token);
   background: #eaf3ff;
-  color: #0f3f87;
+  color: var(--efficy-primary-token);
 }
 
 .loadingState {
