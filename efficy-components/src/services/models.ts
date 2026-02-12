@@ -63,3 +63,61 @@ export interface EfficyReferentialOption {
   id: string;
   label: string;
 }
+
+export interface EfficyBrokerOpportunity {
+  OppEntID: string;
+  OppPerID: string;
+  OppStoID: string;
+  OppStuID: string;
+  OppTitle: string;
+  OppDate: string;
+  OppNumRef: string;
+  OppGammeShouhaitee_: string[];
+  OppOpbID: string;
+  OppNivSouhaite_: string;
+  OppRegimeAssurance_: string;
+  OppStake: number;
+  OppDetail: string;
+}
+
+export interface EfficyBrokerOpportunityWithDisplay extends EfficyBrokerOpportunity {
+  enterpriseName: string;
+  personName: string;
+  personPosition: string;
+  statusLabel: string;
+  stateLabel: string;
+  gammeLabels: string[];
+  probability: number;
+  protectionLevelLabel: string;
+  insuranceSchemeLabel: string;
+}
+
+export interface EfficyBrokerEnterprise {
+  id: string;
+  name: string;
+}
+
+export interface EfficyBrokerPerson {
+  id: string;
+  name: string;
+  functionLabel: string;
+}
+
+export interface EfficyBrokerOpportunityFormOptions {
+  states: EfficyReferentialOption[];
+  probabilities: EfficyReferentialOption[];
+  gammes: EfficyReferentialOption[];
+}
+
+export interface EfficyBrokerCreateOpportunityInput {
+  title: string;
+  detail: string;
+  enterpriseId: string;
+  personId: string;
+  stateId: string;
+  probabilityId: string;
+  signDate: string;
+  amount: number;
+  gammeIds: string[];
+  courtierEntId: string;
+}

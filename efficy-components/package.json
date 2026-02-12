@@ -48,5 +48,9 @@
     "module-type": "module",
     "server": "dist/server/index.js",
     "static-resources": "/dist/client,/dist/assets,/locales,/images,/icons"
+  },
+  "dependencies": {
+    "chart.js": "^4.5.1",
+    "react-chartjs-2": "^5.3.1"
   }
 }

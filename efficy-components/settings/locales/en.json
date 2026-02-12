@@ -184,5 +184,127 @@
     "errors": {
       "load": "Unable to load the knowledge base."
     }
+  },
+  "broker": {
+    "common": {
+      "noBrokerProfile": "No broker profile found for the logged user.",
+      "errors": {
+        "load": "Unable to load broker data."
+      },
+      "actions": {
+        "refresh": "Refresh",
+        "retry": "Retry",
+        "cancel": "Cancel",
+        "back": "Back",
+        "viewDetails": "View details",
+        "viewCharts": "Visual insights"
+      },
+      "charts": {
+        "noData": "No data available for chart rendering."
+      },
+      "pagination": {
+        "prev": "Prev",
+        "next": "Next"
+      }
+    },
+    "clientPortfolio": {
+      "title": "Portefeuille Client",
+      "loading": "Loading client portfolio...",
+      "empty": "No opportunity found.",
+      "table": {
+        "enterprise": "Enterprise",
+        "person": "Person",
+        "status": "Status",
+        "state": "State",
+        "reference": "Reference",
+        "actions": "Actions"
+      },
+      "details": {
+        "main": "Opportunity details",
+        "signDate": "Sign date",
+        "stake": "Stake",
+        "probability": "Probability",
+        "gamme": "Gamme",
+        "protectionLevel": "Protection level",
+        "insuranceScheme": "Insurance scheme",
+        "description": "Description"
+      },
+      "charts": {
+        "title": "Client portfolio visual insights",
+        "statusDistribution": "Status distribution",
+        "probabilitySegments": "Probability segments",
+        "probabilityRanges": {
+          "low": "0% to 25%",
+          "medium": "26% to 50%",
+          "high": "51% to 75%",
+          "veryHigh": "76% to 100%"
+        }
+      }
+    },
+    "businessPortfolio": {
+      "title": "Portefeuille Affaires",
+      "loading": "Loading business portfolio...",
+      "empty": "No opportunity found.",
+      "table": {
+        "number": "Number",
+        "title": "Title",
+        "enterprise": "Enterprise",
+        "person": "Person",
+        "status": "Status",
+        "state": "State",
+        "signDate": "Sign date",
+        "probability": "Probability",
+        "stake": "Stake",
+        "gamme": "Gamme",
+        "actions": "Actions"
+      },
+      "details": {
+        "main": "Opportunity details",
+        "protectionLevel": "Protection level",
+        "insuranceScheme": "Insurance scheme",
+        "description": "Description"
+      },
+      "charts": {
+        "title": "Business portfolio visual insights",
+        "stakeByStatus": "Stake by status",
+        "monthlyDynamics": "Monthly dynamics",
+        "stakeSeries": "Stake",
+        "countSeries": "Opportunity count",
+        "stakeAxis": "Stake (EUR)",
+        "countAxis": "Count"
+      }
+    },
+    "newOpportunity": {
+      "title": "Nouvelle opportunite",
+      "subtitle": "Create a new opportunity linked to your broker profile.",
+      "loading": "Loading form options...",
+      "fields": {
+        "title": "Title",
+        "detail": "Details",
+        "enterprise": "Enterprise",
+        "person": "Person",
+        "state": "State",
+        "probability": "Probability",
+        "signDate": "Sign date",
+        "amount": "Amount",
+        "gamme": "Gamme"
+      },
+      "placeholders": {
+        "enterprise": "Select an enterprise",
+        "person": "Select a person",
+        "state": "Select a state",
+        "probability": "Select a probability"
+      },
+      "submit": "Create opportunity",
+      "submitting": "Creating...",
+      "feedback": {
+        "created": "Opportunity created successfully."
+      },
+      "errors": {
+        "requiredField": "This field is required.",
+        "invalidAmount": "Please enter a valid amount.",
+        "failed": "Unable to create opportunity."
+      }
+    }
   }
 }

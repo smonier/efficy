@@ -184,5 +184,127 @@
     "errors": {
       "load": "Impossible de charger la base de connaissance."
     }
+  },
+  "broker": {
+    "common": {
+      "noBrokerProfile": "Aucun profil courtier trouve pour l utilisateur connecte.",
+      "errors": {
+        "load": "Impossible de charger les donnees courtier."
+      },
+      "actions": {
+        "refresh": "Rafraichir",
+        "retry": "Reessayer",
+        "cancel": "Annuler",
+        "back": "Retour",
+        "viewDetails": "Voir le detail",
+        "viewCharts": "Vue graphique"
+      },
+      "charts": {
+        "noData": "Aucune donnee disponible pour afficher le graphique."
+      },
+      "pagination": {
+        "prev": "Prec.",
+        "next": "Suiv."
+      }
+    },
+    "clientPortfolio": {
+      "title": "Portefeuille Client",
+      "loading": "Chargement du portefeuille client...",
+      "empty": "Aucune opportunite trouvee.",
+      "table": {
+        "enterprise": "Entreprise",
+        "person": "Personne",
+        "status": "Statut",
+        "state": "Etat",
+        "reference": "Reference",
+        "actions": "Actions"
+      },
+      "details": {
+        "main": "Details de l opportunite",
+        "signDate": "Date de signature",
+        "stake": "Montant",
+        "probability": "Probabilite",
+        "gamme": "Gamme",
+        "protectionLevel": "Niveau de protection",
+        "insuranceScheme": "Regime assurance",
+        "description": "Description"
+      },
+      "charts": {
+        "title": "Vue graphique du portefeuille client",
+        "statusDistribution": "Repartition par statut",
+        "probabilitySegments": "Segments de probabilite",
+        "probabilityRanges": {
+          "low": "0% a 25%",
+          "medium": "26% a 50%",
+          "high": "51% a 75%",
+          "veryHigh": "76% a 100%"
+        }
+      }
+    },
+    "businessPortfolio": {
+      "title": "Portefeuille Affaires",
+      "loading": "Chargement du portefeuille affaires...",
+      "empty": "Aucune opportunite trouvee.",
+      "table": {
+        "number": "Numero",
+        "title": "Titre",
+        "enterprise": "Entreprise",
+        "person": "Personne",
+        "status": "Statut",
+        "state": "Etat",
+        "signDate": "Date de signature",
+        "probability": "Probabilite",
+        "stake": "Montant",
+        "gamme": "Gamme",
+        "actions": "Actions"
+      },
+      "details": {
+        "main": "Details de l opportunite",
+        "protectionLevel": "Niveau de protection",
+        "insuranceScheme": "Regime assurance",
+        "description": "Description"
+      },
+      "charts": {
+        "title": "Vue graphique du portefeuille affaires",
+        "stakeByStatus": "Montant par statut",
+        "monthlyDynamics": "Dynamique mensuelle",
+        "stakeSeries": "Montant",
+        "countSeries": "Nombre d opportunites",
+        "stakeAxis": "Montant (EUR)",
+        "countAxis": "Nombre"
+      }
+    },
+    "newOpportunity": {
+      "title": "Nouvelle opportunite",
+      "subtitle": "Creez une nouvelle opportunite liee a votre profil courtier.",
+      "loading": "Chargement des options du formulaire...",
+      "fields": {
+        "title": "Titre",
+        "detail": "Details",
+        "enterprise": "Entreprise",
+        "person": "Personne",
+        "state": "Etat",
+        "probability": "Probabilite",
+        "signDate": "Date de signature",
+        "amount": "Montant",
+        "gamme": "Gamme"
+      },
+      "placeholders": {
+        "enterprise": "Selectionnez une entreprise",
+        "person": "Selectionnez une personne",
+        "state": "Selectionnez un etat",
+        "probability": "Selectionnez une probabilite"
+      },
+      "submit": "Creer l opportunite",
+      "submitting": "Creation...",
+      "feedback": {
+        "created": "Opportunite creee avec succes."
+      },
+      "errors": {
+        "requiredField": "Ce champ est requis.",
+        "invalidAmount": "Veuillez saisir un montant valide.",
+        "failed": "Impossible de creer l opportunite."
+      }
+    }
   }
 }
