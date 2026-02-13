@@ -60,6 +60,45 @@ function asLabel(value: string | undefined): string {
   return (value || "").trim() || "-";
 }
 
+function normalizeBadgeLabel(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getStatusClass(status: string): string {
+  const normalized = normalizeBadgeLabel(status);
+
+  if (["en cours", "in progress", "encours"].includes(normalized)) {
+    return classes.statusInProgress;
+  }
+
+  if (["en attente client", "pending customer", "waiting customer"].includes(normalized)) {
+    return classes.statusWaitingCustomer;
+  }
+
+  if (["a qualifier", "to qualify", "toqualify", "toqualifier"].includes(normalized)) {
+    return classes.statusToQualify;
+  }
+
+  if (["fermee", "closed"].includes(normalized)) {
+    return classes.statusClosed;
+  }
+
+  if (["termine", "terminee", "completed", "done"].includes(normalized)) {
+    return classes.statusCompleted;
+  }
+
+  if (["annulee", "annule", "cancelled", "canceled"].includes(normalized)) {
+    return classes.statusCancelled;
+  }
+
+  return classes.statusDefault;
+}
+
 export default function BrokerBusinessPortfolioIsland({
   title,
   pageSize,
@@ -587,7 +626,9 @@ export default function BrokerBusinessPortfolioIsland({
                     <td>{opportunity.OppNumRef || "-"}</td>
                     <td>{opportunity.OppTitle || "-"}</td>
                     <td>
-                      <span className={classes.badge}>{opportunity.statusLabel || "-"}</span>
+                      <span className={`${classes.badge} ${getStatusClass(opportunity.statusLabel)}`}>
+                        {opportunity.statusLabel || "-"}
+                      </span>
                     </td>
                     <td>{formatDate(opportunity.OppDate, dateLocale)}</td>
                     <td>{opportunity.probability}%</td>

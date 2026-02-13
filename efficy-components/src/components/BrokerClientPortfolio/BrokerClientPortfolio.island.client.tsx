@@ -52,9 +52,49 @@ const chartPalette = [
   "rgba(186, 225, 255, 0.75)",
   "rgba(223, 209, 255, 0.75)",
 ];
+const chartLegendColor = "#1f3555";
 
 function asLabel(value: string | undefined): string {
   return (value || "").trim() || "-";
+}
+
+function normalizeBadgeLabel(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getStatusClass(status: string): string {
+  const normalized = normalizeBadgeLabel(status);
+
+  if (["en cours", "in progress", "encours"].includes(normalized)) {
+    return classes.statusInProgress;
+  }
+
+  if (["en attente client", "pending customer", "waiting customer"].includes(normalized)) {
+    return classes.statusWaitingCustomer;
+  }
+
+  if (["a qualifier", "to qualify", "toqualify", "toqualifier"].includes(normalized)) {
+    return classes.statusToQualify;
+  }
+
+  if (["fermee", "closed"].includes(normalized)) {
+    return classes.statusClosed;
+  }
+
+  if (["termine", "terminee", "completed", "done"].includes(normalized)) {
+    return classes.statusCompleted;
+  }
+
+  if (["annulee", "annule", "cancelled", "canceled"].includes(normalized)) {
+    return classes.statusCancelled;
+  }
+
+  return classes.statusDefault;
 }
 
 export default function BrokerClientPortfolioIsland({
@@ -245,6 +285,9 @@ export default function BrokerClientPortfolioIsland({
       plugins: {
         legend: {
           position: "bottom",
+          labels: {
+            color: chartLegendColor,
+          },
         },
       },
     }),
@@ -269,6 +312,9 @@ export default function BrokerClientPortfolioIsland({
       plugins: {
         legend: {
           position: "bottom",
+          labels: {
+            color: chartLegendColor,
+          },
         },
       },
     }),
@@ -506,7 +552,9 @@ export default function BrokerClientPortfolioIsland({
                       )}
                     </td>
                     <td>
-                      <span className={classes.badge}>{opportunity.statusLabel || "-"}</span>
+                      <span className={`${classes.badge} ${getStatusClass(opportunity.statusLabel)}`}>
+                        {opportunity.statusLabel || "-"}
+                      </span>
                     </td>
                     <td>{opportunity.stateLabel || "-"}</td>
                     <td>{opportunity.OppNumRef || "-"}</td>
