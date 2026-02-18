@@ -136,7 +136,9 @@ export default function UserProfileIsland({ title, apiBasePath }: UserProfileIsl
       profile?.clientNumber ||
       profile?.loyaltyScore,
   );
-  const hasExtendedInfo = hasContactInfo || hasAddressInfo || hasOtherInfo;
+  const householdMembers = profile?.householdMembers ?? [];
+  const hasHouseholdInfo = householdMembers.length > 0;
+  const hasExtendedInfo = hasContactInfo || hasAddressInfo || hasOtherInfo || hasHouseholdInfo;
 
   if (loadState === "loading" || loadState === "idle") {
     return (
@@ -296,6 +298,30 @@ export default function UserProfileIsland({ title, apiBasePath }: UserProfileIsl
                     </div>
                   )}
                 </div>
+              </div>
+            )}
+
+            {hasHouseholdInfo && (
+              <div className={classes.detailBlock}>
+                <h4 className={classes.preferenceTitle}>{t("profile.details.household")}</h4>
+                <ul className={classes.householdList}>
+                  {householdMembers.map((member, index) => (
+                    <li
+                      className={classes.householdItem}
+                      key={`${member.personId || `${member.firstName || ""}-${member.lastName || ""}`}-${index}`}
+                    >
+                      <span className={classes.householdName}>
+                        {[member.civility, member.firstName, member.lastName].filter(Boolean).join(" ") || "-"}
+                      </span>
+                      {(member.title || member.status) && (
+                        <span className={classes.householdMeta}>
+                          {member.title ? ` - ${member.title}` : ""}
+                          {member.status ? ` (${member.status})` : ""}
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
           </>

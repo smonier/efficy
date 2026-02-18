@@ -48,9 +48,19 @@ export interface EfficyUserProfile {
   birthDate?: string;
   clientNumber?: string;
   loyaltyScore?: string;
+  householdMembers: EfficyHouseholdMember[];
   newsletterIds: string[];
   consentIds: string[];
   preferredMediaId: string;
+}
+
+export interface EfficyHouseholdMember {
+  personId?: string;
+  civility?: string;
+  firstName?: string;
+  lastName?: string;
+  status?: string;
+  title?: string;
 }
 
 export interface EfficyQualification {

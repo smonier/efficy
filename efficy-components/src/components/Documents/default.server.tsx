@@ -37,11 +37,9 @@ export default jahiaComponent(
     return (
       <>
         <AddResources type="css" resources={buildModuleFileUrl("dist/assets/style.css")} />
-        <div className={classes.root}>
-          <Island component={DocumentsIsland} props={islandProps} clientOnly>
-            <div className={classes.loadingFallback}>...</div>
-          </Island>
-        </div>
+        <Island component={DocumentsIsland} props={islandProps} clientOnly>
+          <div>...</div>
+        </Island>
       </>
     );
   },

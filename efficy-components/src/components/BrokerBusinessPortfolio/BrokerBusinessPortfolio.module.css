@@ -3,29 +3,27 @@
 }
 
 .loadingFallback {
-  border: 1px solid #d8dee7;
+  border: 1px solid var(--efficy-secondary-border, inherit);
   border-radius: 0.75rem;
   padding: 1rem;
-  background: #fbfdff;
-  color: #344054;
+  background: inherit;
+  color: inherit;
   font-size: 0.95rem;
 }
 
 .container {
-  --efficy-primary-token: var(--portal-color-primary, var(--color-primary, var(--primary, var(--primary-dark))));
-  --efficy-on-primary-token: var(--portal-color-on-primary, var(--color-primary-foreground, var(--primary-foreground, #fff)));
-  --efficy-font-family: var(--font-family, var(--bs-body-font-family, inherit));
-  --efficy-secondary-border: var(--secondary-border, #c5d0e4);
-  --efficy-secondary-bg: var(--secondary-bg, #fff);
-  --efficy-secondary-text: var(--secondary-text, #15345d);
-  --efficy-secondary-hover-bg: var(--secondary-hover-bg, #f6f9ff);
-  border: 1px solid #d8dee7;
+  --efficy-primary-token: var(--portal-color-primary, var(--color-primary, var(--primary, #c21a1f)));
+  --efficy-on-primary-token: var(--portal-color-on-primary, var(--color-primary-foreground, var(--primary-foreground, #ffffff)));
+  --efficy-secondary-border: var(--secondary-border, #e5e7eb);
+  --efficy-secondary-bg: var(--secondary-bg, #ffffff);
+  --efficy-secondary-text: var(--secondary-text, inherit);
+  --efficy-secondary-hover-bg: var(--secondary-hover-bg, #f9fafb);
+  border: 1px solid var(--efficy-secondary-border);
   border-radius: 1rem;
   padding: 1.25rem;
-  background: linear-gradient(180deg, #fbfdff 0%, #f6f9fc 100%);
-  color: #0b1b34;
-  box-shadow: 0 10px 24px -20px rgb(11 27 52 / 35%);
-  font-family: var(--efficy-font-family);
+  background: var(--efficy-secondary-bg);
+  color: var(--efficy-secondary-text, inherit);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
 }
 
 .header {
@@ -103,39 +101,39 @@
   align-items: center;
   gap: 0.55rem;
   padding: 1rem;
-  border: 1px solid #d8dee7;
+  border: 1px solid var(--efficy-secondary-border, inherit);
   border-radius: 0.75rem;
-  background: #fff;
+  background: var(--efficy-secondary-bg, inherit);
 }
 
 .spinner {
   width: 1rem;
   height: 1rem;
   border-radius: 50%;
-  border: 2px solid #c7d5ea;
-  border-top-color: #0f4da8;
+  border: 2px solid var(--efficy-secondary-border, inherit);
+  border-top-color: var(--efficy-primary-token, inherit);
   animation: spin 0.8s linear infinite;
 }
 
 .errorState {
-  border: 1px solid #f3c3bf;
+  border: 1px solid var(--efficy-secondary-border, inherit);
   border-radius: 0.75rem;
   padding: 1rem;
-  background: #fff7f6;
-  color: #8a2121;
+  background: var(--efficy-secondary-bg, inherit);
+  color: inherit;
 }
 
 .errorMessage {
   margin: 0 0 0.75rem;
-  color: #ba2f2f;
+  color: inherit;
 }
 
 .emptyState {
-  border: 1px dashed #b8c6dd;
+  border: 1px dashed var(--efficy-secondary-border, inherit);
   border-radius: 0.75rem;
   padding: 1rem;
-  background: #ffffff;
-  color: #344054;
+  background: var(--efficy-secondary-bg, inherit);
+  color: inherit;
 }
 
 .tableWrapper {
@@ -145,22 +143,22 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid #d8dee7;
-  background: #fff;
+  border: 1px solid var(--efficy-secondary-border, inherit);
+  background: var(--efficy-secondary-bg, inherit);
 }
 
 .table th,
 .table td {
   text-align: left;
   padding: 0.75rem 0.8rem;
-  border-bottom: 1px solid #e6ecf5;
+  border-bottom: 1px solid var(--efficy-secondary-border, inherit);
   vertical-align: middle;
   font-size: 0.875rem;
 }
 
 .table th {
-  background: #f3f7fc;
-  color: #344054;
+  background: var(--efficy-secondary-bg, inherit);
+  color: inherit;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -178,14 +176,14 @@
 }
 
 .sortIcon {
-  color: #5f7394;
+  color: inherit;
   font-size: 0.9em;
 }
 
 .rowButton {
   border: 0;
   background: transparent;
-  color: #1f5fa8;
+  color: var(--efficy-primary-token, inherit);
   cursor: pointer;
   font-size: 0.84rem;
   padding: 0;
@@ -206,45 +204,45 @@
 }
 
 .statusInProgress {
-  background: #dff0ff;
-  color: #21517d;
-  border-color: #b8d7ee;
+  background: var(--badge-info-bg, #dbeafe);
+  color: var(--badge-info-text, #1e40af);
+  border-color: var(--badge-info-border, #93c5fd);
 }
 
 .statusWaitingCustomer {
-  background: #fff5d6;
-  color: #7a5a1e;
-  border-color: #efd8a0;
+  background: var(--badge-warning-bg, #fef3c7);
+  color: var(--badge-warning-text, #92400e);
+  border-color: var(--badge-warning-border, #fcd34d);
 }
 
 .statusToQualify {
-  background: #ffe9dc;
-  color: #8a4f2d;
-  border-color: #efc4aa;
+  background: var(--badge-warning-bg, #fef3c7);
+  color: var(--badge-warning-text, #92400e);
+  border-color: var(--badge-warning-border, #fcd34d);
 }
 
 .statusClosed {
-  background: #e3f4e7;
-  color: #2f6a45;
-  border-color: #b9dec4;
+  background: var(--badge-success-bg, #d1fae5);
+  color: var(--badge-success-text, #065f46);
+  border-color: var(--badge-success-border, #6ee7b7);
 }
 
 .statusCompleted {
-  background: #dff6f3;
-  color: #23655d;
-  border-color: #b6dfd9;
+  background: var(--badge-success-bg, #d1fae5);
+  color: var(--badge-success-text, #065f46);
+  border-color: var(--badge-success-border, #6ee7b7);
 }
 
 .statusCancelled {
-  background: #fbe3ea;
-  color: #874159;
-  border-color: #e9bccb;
+  background: var(--badge-danger-bg, #fee2e2);
+  color: var(--badge-danger-text, #991b1b);
+  border-color: var(--badge-danger-border, #fca5a5);
 }
 
 .statusDefault {
-  background: #eef1f6;
-  color: #4f5f78;
-  border-color: #d0d8e4;
+  background: var(--badge-default-bg, #f3f4f6);
+  color: var(--badge-default-text, #374151);
+  border-color: var(--badge-default-border, #d1d5db);
 }
 
 .pagination {
@@ -259,21 +257,21 @@
   min-width: 2rem;
   height: 2rem;
   border-radius: 0.45rem;
-  border: 1px solid #c3d1e7;
-  background: #fff;
-  color: #173a63;
+  border: 1px solid var(--efficy-secondary-border, inherit);
+  background: var(--efficy-secondary-bg, inherit);
+  color: inherit;
   font-size: 0.84rem;
   cursor: pointer;
 }
 
 .pageButton:hover {
-  background: #f2f7ff;
+  background: var(--efficy-secondary-hover-bg, inherit);
 }
 
 .pageButtonActive {
-  border-color: var(--efficy-primary-token);
-  background: #eaf3ff;
-  color: #0f4da8;
+  border-color: var(--efficy-primary-token, inherit);
+  background: var(--efficy-primary-token, inherit);
+  color: var(--efficy-on-primary-token, inherit);
 }
 
 .pageButton:disabled {
@@ -294,9 +292,9 @@
 }
 
 .detailSection {
-  border: 1px solid #d8dee7;
+  border: 1px solid var(--efficy-secondary-border, inherit);
   border-radius: 0.75rem;
-  background: #fff;
+  background: var(--efficy-secondary-bg, inherit);
   padding: 0.85rem;
   margin-bottom: 0.8rem;
 }
@@ -304,14 +302,14 @@
 .detailSectionTitle {
   margin: 0 0 0.6rem;
   font-size: 0.92rem;
-  color: #243f63;
+  color: inherit;
 }
 
 .detailDescription {
   margin: 0;
   white-space: pre-wrap;
   line-height: 1.5;
-  color: #2c4366;
+  color: inherit;
   font-size: 0.88rem;
 }
 
@@ -322,19 +320,19 @@
 }
 
 .detailInfoItem {
-  border: 1px solid #e2e9f4;
+  border: 1px solid var(--efficy-secondary-border, inherit);
   border-radius: 0.65rem;
-  background: #fbfdff;
+  background: var(--efficy-secondary-bg, inherit);
   padding: 0.55rem 0.65rem;
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
   font-size: 0.82rem;
-  color: #4b607f;
+  color: inherit;
 }
 
 .detailInfoItem strong {
-  color: #173a63;
+  color: inherit;
   font-size: 0.88rem;
 }
 
@@ -351,10 +349,10 @@
 
 .dialogPanel {
   width: min(980px, 100%);
-  border: 1px solid #d5e0f1;
+  border: 1px solid var(--efficy-secondary-border, inherit);
   border-radius: 1rem;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-  box-shadow: 0 24px 54px -36px rgb(11 27 52 / 55%);
+  background: var(--efficy-secondary-bg, inherit);
+  box-shadow: 0 24px 54px -36px rgba(0, 0, 0, 0.3);
   padding: 1rem;
 }
 
@@ -369,7 +367,7 @@
 .dialogTitle {
   margin: 0;
   font-size: 1.05rem;
-  color: #173a63;
+  color: inherit;
 }
 
 .chartGrid {
@@ -379,9 +377,9 @@
 }
 
 .chartCard {
-  border: 1px solid #e1eaf6;
+  border: 1px solid var(--efficy-secondary-border, inherit);
   border-radius: 0.85rem;
-  background: #fff;
+  background: var(--efficy-secondary-bg, inherit);
   padding: 0.8rem;
   min-height: 340px;
 }
@@ -389,7 +387,7 @@
 .chartTitle {
   margin: 0 0 0.65rem;
   font-size: 0.9rem;
-  color: #2f4d75;
+  color: inherit;
 }
 
 .chartCanvas {
@@ -399,7 +397,7 @@
 
 .chartEmpty {
   margin: 0;
-  color: #5e7292;
+  color: inherit;
   font-size: 0.85rem;
 }
 

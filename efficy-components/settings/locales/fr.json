@@ -8,177 +8,178 @@
       "unexpected": "Erreur inattendue"
     },
     "actions": {
-      "refresh": "Rafraîchir",
-      "retry": "Réessayer",
+      "refresh": "Rafra\u00eechir",
+      "retry": "R\u00e9essayer",
       "new": "Nouvelle demande",
       "cancel": "Annuler",
-      "submit": "Créer la demande",
-      "creating": "Création..."
+      "submit": "Cr\u00e9er la demande",
+      "creating": "Cr\u00e9ation..."
     },
     "table": {
       "code": "Code",
       "type": "Type",
       "status": "Statut",
-      "assignedTo": "Assigné à",
-      "createdOn": "Créée le",
-      "priority": "Priorité",
+      "assignedTo": "Assign\u00e9 \u00e0",
+      "createdOn": "Cr\u00e9\u00e9e le",
+      "priority": "Priorit\u00e9",
       "actions": "Actions"
     },
     "details": {
-      "back": "Retour à la liste",
+      "back": "Retour \u00e0 la liste",
       "title": "Demande {{id}}",
       "description": "Description",
       "info": "Informations",
-      "attachments": "Pièces jointes",
-      "loadingAttachments": "Chargement des pièces jointes...",
-      "noAttachments": "Aucune pièce jointe.",
-      "download": "Télécharger",
-      "downloading": "Téléchargement...",
-      "open": "Voir le détail",
+      "attachments": "Pi\u00e8ces jointes",
+      "loadingAttachments": "Chargement des pi\u00e8ces jointes...",
+      "noAttachments": "Aucune pi\u00e8ce jointe.",
+      "download": "T\u00e9l\u00e9charger",
+      "downloading": "T\u00e9l\u00e9chargement...",
+      "open": "Voir le d\u00e9tail",
       "errors": {
-        "load": "Impossible de charger le détail de la demande.",
-        "download": "Impossible de télécharger la pièce jointe."
+        "load": "Impossible de charger le d\u00e9tail de la demande.",
+        "download": "Impossible de t\u00e9l\u00e9charger la pi\u00e8ce jointe."
       }
     },
     "create": {
-      "title": "Créer une demande",
+      "title": "Cr\u00e9er une demande",
       "subtitle": "Soumettez votre demande avec votre profil client Efficy.",
       "loadingOptions": "Chargement des options du formulaire...",
       "fields": {
-        "category": "Catégorie",
-        "priority": "Priorité",
+        "category": "Cat\u00e9gorie",
+        "priority": "Priorit\u00e9",
         "description": "Description",
-        "attachment": "Pièce jointe"
+        "attachment": "Pi\u00e8ce jointe"
       },
       "placeholders": {
-        "category": "Sélectionnez une catégorie",
-        "priority": "Sélectionnez une priorité",
-        "description": "Décrivez votre demande"
+        "category": "S\u00e9lectionnez une cat\u00e9gorie",
+        "priority": "S\u00e9lectionnez une priorit\u00e9",
+        "description": "D\u00e9crivez votre demande"
       },
-      "selectedFile": "Fichier sélectionné : {{name}}",
+      "selectedFile": "Fichier s\u00e9lectionn\u00e9 : {{name}}",
       "errors": {
-        "required": "La catégorie et la description sont obligatoires.",
-        "failed": "Impossible de créer la demande.",
-        "attachMissingDemande": "La demande est créée mais son identifiant est introuvable pour attacher le fichier.",
-        "attachUpload": "Impossible de téléverser la pièce jointe.",
-        "attachLink": "Pièce jointe téléversée, mais liaison à la demande impossible."
+        "required": "La cat\u00e9gorie et la description sont obligatoires.",
+        "failed": "Impossible de cr\u00e9er la demande.",
+        "attachMissingDemande": "La demande est cr\u00e9\u00e9e mais son identifiant est introuvable pour attacher le fichier.",
+        "attachUpload": "Impossible de t\u00e9l\u00e9verser la pi\u00e8ce jointe.",
+        "attachLink": "Pi\u00e8ce jointe t\u00e9l\u00e9vers\u00e9e, mais liaison \u00e0 la demande impossible."
       }
     }
   },
   "profile": {
     "title": "Mon profil",
-    "subtitle": "Gérez vos préférences de communication.",
+    "subtitle": "G\u00e9rez vos pr\u00e9f\u00e9rences de communication.",
     "loading": "Chargement du profil...",
     "identity": {
-      "title": "Identité",
+      "title": "Identit\u00e9",
       "name": "Nom",
       "email": "Email"
     },
     "details": {
-      "title": "Informations complètes du profil",
+      "title": "Informations compl\u00e8tes du profil",
       "show": "Tout afficher",
-      "hide": "Masquer le détail",
-      "empty": "Aucune information supplémentaire disponible.",
+      "hide": "Masquer le d\u00e9tail",
+      "empty": "Aucune information suppl\u00e9mentaire disponible.",
       "contact": "Contact",
       "address": "Adresse",
       "other": "Autres informations",
+      "household": "Composition du foyer",
       "fields": {
-        "phone": "Téléphone",
+        "phone": "T\u00e9l\u00e9phone",
         "mobile": "Mobile",
         "fax": "Fax",
         "title": "Fonction",
         "status": "Statut",
-        "company": "Société",
+        "company": "Soci\u00e9t\u00e9",
         "birthDate": "Date de naissance",
-        "clientNumber": "Numéro client",
-        "loyaltyScore": "Score fidélité"
+        "clientNumber": "Num\u00e9ro client",
+        "loyaltyScore": "Score fid\u00e9lit\u00e9"
       }
     },
     "preferences": {
-      "title": "Préférences",
+      "title": "Pr\u00e9f\u00e9rences",
       "subscriptions": "Abonnements",
       "consents": "Consentements",
-      "media": "Média préféré",
+      "media": "M\u00e9dia pr\u00e9f\u00e9r\u00e9",
       "empty": "Aucune option disponible."
     },
     "actions": {
-      "save": "Enregistrer les préférences",
+      "save": "Enregistrer les pr\u00e9f\u00e9rences",
       "saving": "Enregistrement...",
-      "retry": "Réessayer"
+      "retry": "R\u00e9essayer"
     },
     "feedback": {
-      "saved": "Préférences enregistrées."
+      "saved": "Pr\u00e9f\u00e9rences enregistr\u00e9es."
     },
     "errors": {
       "load": "Impossible de charger le profil.",
-      "save": "Impossible d'enregistrer les préférences."
+      "save": "Impossible d'enregistrer les pr\u00e9f\u00e9rences."
     }
   },
   "documents": {
     "title": "Mes documents",
-    "subtitle": "Téléversez des documents et liez-les à votre profil ou à une demande.",
+    "subtitle": "T\u00e9l\u00e9versez des documents et liez-les \u00e0 votre profil ou \u00e0 une demande.",
     "loading": "Chargement des documents...",
     "empty": "Aucun document disponible pour ce profil.",
     "table": {
       "name": "Nom",
-      "createdOn": "Créé le",
+      "createdOn": "Cr\u00e9\u00e9 le",
       "type": "Type",
       "size": "Taille",
       "actions": "Actions"
     },
     "actions": {
-      "refresh": "Rafraîchir",
-      "retry": "Réessayer",
-      "upload": "Téléverser un document",
-      "uploading": "Téléversement...",
+      "refresh": "Rafra\u00eechir",
+      "retry": "R\u00e9essayer",
+      "upload": "T\u00e9l\u00e9verser un document",
+      "uploading": "T\u00e9l\u00e9versement...",
       "submit": "Attacher le document",
       "cancel": "Annuler",
-      "download": "Télécharger",
-      "downloading": "Téléchargement..."
+      "download": "T\u00e9l\u00e9charger",
+      "downloading": "T\u00e9l\u00e9chargement..."
     },
     "upload": {
       "title": "Attacher un document",
       "fields": {
         "file": "Fichier",
-        "target": "Attacher à",
+        "target": "Attacher \u00e0",
         "demande": "Demande"
       },
       "targets": {
         "demande": "Une demande",
         "profile": "Mon profil"
       },
-      "selectDemande": "Sélectionnez une demande"
+      "selectDemande": "S\u00e9lectionnez une demande"
     },
     "feedback": {
-      "uploaded": "Document téléversé avec succès."
+      "uploaded": "Document t\u00e9l\u00e9vers\u00e9 avec succ\u00e8s."
     },
     "errors": {
       "load": "Impossible de charger les documents.",
-      "upload": "Impossible de téléverser le document.",
-      "download": "Impossible de télécharger le document.",
-      "requiredFile": "Veuillez sélectionner un fichier.",
-      "requiredDemande": "Veuillez sélectionner une demande."
+      "upload": "Impossible de t\u00e9l\u00e9verser le document.",
+      "download": "Impossible de t\u00e9l\u00e9charger le document.",
+      "requiredFile": "Veuillez s\u00e9lectionner un fichier.",
+      "requiredDemande": "Veuillez s\u00e9lectionner une demande."
     }
   },
   "kb": {
     "title": "Base de connaissance",
-    "subtitle": "Consultez les FAQ publiées depuis Efficy.",
+    "subtitle": "Consultez les FAQ publi\u00e9es depuis Efficy.",
     "loading": "Chargement des FAQ...",
     "empty": "Aucune FAQ disponible.",
-    "noMatch": "Aucune FAQ ne correspond à votre recherche ou à votre filtre.",
+    "noMatch": "Aucune FAQ ne correspond \u00e0 votre recherche ou \u00e0 votre filtre.",
     "search": {
-      "placeholder": "Rechercher un mot-clé"
+      "placeholder": "Rechercher un mot-cl\u00e9"
     },
     "filters": {
       "all": "Tous les sujets"
     },
     "faq": {
       "untitled": "Question sans titre",
-      "noContent": "Aucune réponse disponible."
+      "noContent": "Aucune r\u00e9ponse disponible."
     },
     "actions": {
-      "refresh": "Rafraîchir",
-      "retry": "Réessayer",
+      "refresh": "Rafra\u00eechir",
+      "retry": "R\u00e9essayer",
       "clearSearch": "Effacer"
     },
     "errors": {
@@ -187,81 +188,81 @@
   },
   "broker": {
     "common": {
-      "noBrokerProfile": "Aucun profil courtier trouvé pour l'utilisateur connecté.",
+      "noBrokerProfile": "Aucun profil courtier trouv\u00e9 pour l'utilisateur connect\u00e9.",
       "errors": {
-        "load": "Impossible de charger les données courtier."
+        "load": "Impossible de charger les donn\u00e9es courtier."
       },
       "actions": {
-        "refresh": "Rafraîchir",
-        "retry": "Réessayer",
+        "refresh": "Rafra\u00eechir",
+        "retry": "R\u00e9essayer",
         "cancel": "Annuler",
         "back": "Retour",
-        "viewDetails": "Voir le détail",
+        "viewDetails": "Voir le d\u00e9tail",
         "viewCharts": "Vue graphique"
       },
       "charts": {
-        "noData": "Aucune donnée disponible pour afficher le graphique."
+        "noData": "Aucune donn\u00e9e disponible pour afficher le graphique."
       },
       "pagination": {
-        "prev": "Préc.",
+        "prev": "Pr\u00e9c.",
         "next": "Suiv."
       }
     },
     "clientPortfolio": {
       "title": "Portefeuille Client",
       "loading": "Chargement du portefeuille client...",
-      "empty": "Aucune opportunité trouvée.",
+      "empty": "Aucune opportunit\u00e9 trouv\u00e9e.",
       "table": {
         "enterprise": "Entreprise",
         "person": "Personne",
         "status": "Statut",
-        "state": "État",
-        "reference": "Référence",
+        "state": "\u00c9tat",
+        "reference": "R\u00e9f\u00e9rence",
         "actions": "Actions"
       },
       "details": {
-        "main": "Détails de l'opportunité",
+        "main": "D\u00e9tails de l'opportunit\u00e9",
         "signDate": "Date de signature",
         "stake": "Montant",
-        "probability": "Probabilité",
+        "probability": "Probabilit\u00e9",
         "gamme": "Gamme",
         "protectionLevel": "Niveau de protection",
-        "insuranceScheme": "Régime d'assurance",
+        "insuranceScheme": "R\u00e9gime d'assurance",
         "description": "Description"
       },
       "charts": {
         "title": "Vue graphique du portefeuille client",
-        "statusDistribution": "Répartition par statut",
-        "probabilitySegments": "Segments de probabilité",
+        "statusDistribution": "R\u00e9partition par statut",
+        "probabilitySegments": "Segments de probabilit\u00e9",
         "probabilityRanges": {
-          "low": "0% à 25%",
-          "medium": "26% à 50%",
-          "high": "51% à 75%",
-          "veryHigh": "76% à 100%"
+          "low": "0% \u00e0 25%",
+          "medium": "26% \u00e0 50%",
+          "high": "51% \u00e0 75%",
+          "veryHigh": "76% \u00e0 100%"
         }
       }
     },
     "businessPortfolio": {
       "title": "Portefeuille Affaires",
       "loading": "Chargement du portefeuille affaires...",
-      "empty": "Aucune opportunité trouvée.",
+      "empty": "Aucune opportunit\u00e9 trouv\u00e9e.",
       "table": {
-        "number": "Numéro",
+        "number": "Num\u00e9ro",
         "title": "Titre",
         "enterprise": "Entreprise",
         "person": "Personne",
         "status": "Statut",
-        "state": "État",
+        "state": "\u00c9tat",
         "signDate": "Date de signature",
-        "probability": "Probabilité",
+        "probability": "Probabilit\u00e9",
         "stake": "Montant",
         "gamme": "Gamme",
         "actions": "Actions"
       },
       "details": {
-        "main": "Détails de l'opportunité",
+        "main": "D\u00e9tails de l'opportunit\u00e9",
         "protectionLevel": "Niveau de protection",
-        "insuranceScheme": "Régime d'assurance",
+        "insuranceScheme": "R\u00e9gime d'assurance",
         "description": "Description"
       },
       "charts": {
@@ -269,41 +270,41 @@
         "stakeByStatus": "Montant par statut",
         "monthlyDynamics": "Dynamique mensuelle",
         "stakeSeries": "Montant",
-        "countSeries": "Nombre d'opportunités",
+        "countSeries": "Nombre d'opportunit\u00e9s",
         "stakeAxis": "Montant (EUR)",
         "countAxis": "Nombre"
       }
     },
     "newOpportunity": {
-      "title": "Nouvelle opportunité",
-      "subtitle": "Créez une nouvelle opportunité liée à votre profil courtier.",
+      "title": "Nouvelle opportunit\u00e9",
+      "subtitle": "Cr\u00e9ez une nouvelle opportunit\u00e9 li\u00e9e \u00e0 votre profil courtier.",
       "loading": "Chargement des options du formulaire...",
       "fields": {
         "title": "Titre",
-        "detail": "Détails",
+        "detail": "D\u00e9tails",
         "enterprise": "Entreprise",
         "person": "Personne",
-        "state": "État",
-        "probability": "Probabilité",
+        "state": "\u00c9tat",
+        "probability": "Probabilit\u00e9",
         "signDate": "Date de signature",
         "amount": "Montant",
         "gamme": "Gamme"
       },
       "placeholders": {
-        "enterprise": "Sélectionnez une entreprise",
-        "person": "Sélectionnez une personne",
-        "state": "Sélectionnez un état",
-        "probability": "Sélectionnez une probabilité"
+        "enterprise": "S\u00e9lectionnez une entreprise",
+        "person": "S\u00e9lectionnez une personne",
+        "state": "S\u00e9lectionnez un \u00e9tat",
+        "probability": "S\u00e9lectionnez une probabilit\u00e9"
       },
-      "submit": "Créer l'opportunité",
-      "submitting": "Création...",
+      "submit": "Cr\u00e9er l'opportunit\u00e9",
+      "submitting": "Cr\u00e9ation...",
       "feedback": {
-        "created": "Opportunité créée avec succès."
+        "created": "Opportunit\u00e9 cr\u00e9\u00e9e avec succ\u00e8s."
       },
       "errors": {
         "requiredField": "Ce champ est requis.",
         "invalidAmount": "Veuillez saisir un montant valide.",
-        "failed": "Impossible de créer l'opportunité."
+        "failed": "Impossible de cr\u00e9er l'opportunit\u00e9."
       }
     }
   }

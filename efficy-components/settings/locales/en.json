@@ -82,6 +82,7 @@
       "contact": "Contact",
       "address": "Address",
       "other": "Other information",
+      "household": "Household members",
       "fields": {
         "phone": "Phone",
         "mobile": "Mobile",
