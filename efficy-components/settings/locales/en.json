@@ -307,5 +307,35 @@
         "failed": "Unable to create opportunity."
       }
     }
+  },
+  "efficy": {
+    "newOpportunity": {
+      "title": "New Opportunity",
+      "fields": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "company": "Company",
+        "email": "Email",
+        "phoneNumber": "Phone Number",
+        "services": "Services",
+        "station": "Station",
+        "stationPlaceholder": "Select a station",
+        "comment": "Additional Comments"
+      },
+      "submit": "Create Service Requests",
+      "submitting": "Creating...",
+      "success": "{{count}} service request(s) created successfully.",
+      "errors": {
+        "firstNameRequired": "First name is required.",
+        "lastNameRequired": "Last name is required.",
+        "companyRequired": "Company is required.",
+        "emailRequired": "Email is required.",
+        "emailInvalid": "Please enter a valid email address.",
+        "servicesRequired": "Please select at least one service.",
+        "stationRequired": "Please select a station.",
+        "contextNotLoaded": "User context not loaded. Please refresh the page.",
+        "submit": "Unable to create service requests."
+      }
+    }
   }
 }

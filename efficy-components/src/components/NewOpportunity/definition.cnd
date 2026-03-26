@@ -1,0 +1,6 @@
+
+
+[efficycomponents:newOpportunity] > jnt:content, mix:title, efficycomponentsmix:component
+ - pageSize (long) = 50
+ - servicesPath (string) = '/sites/{site}/contents/services'
+ - stationsPath (string) = '/sites/{site}/contents/stations'

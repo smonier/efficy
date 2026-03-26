@@ -307,5 +307,35 @@
         "failed": "Impossible de cr\u00e9er l'opportunit\u00e9."
       }
     }
+  },
+  "efficy": {
+    "newOpportunity": {
+      "title": "Nouvelle Opportunit\u00e9",
+      "fields": {
+        "firstName": "Pr\u00e9nom",
+        "lastName": "Nom",
+        "company": "Soci\u00e9t\u00e9",
+        "email": "Email",
+        "phoneNumber": "Num\u00e9ro de t\u00e9l\u00e9phone",
+        "services": "Services",
+        "station": "Station",
+        "stationPlaceholder": "S\u00e9lectionnez une station",
+        "comment": "Commentaires suppl\u00e9mentaires"
+      },
+      "submit": "Cr\u00e9er les Demandes de Services",
+      "submitting": "Cr\u00e9ation...",
+      "success": "{{count}} demande(s) de service cr\u00e9\u00e9e(s) avec succ\u00e8s.",
+      "errors": {
+        "firstNameRequired": "Le pr\u00e9nom est requis.",
+        "lastNameRequired": "Le nom est requis.",
+        "companyRequired": "La soci\u00e9t\u00e9 est requise.",
+        "emailRequired": "L'email est requis.",
+        "emailInvalid": "Veuillez saisir une adresse email valide.",
+        "servicesRequired": "Veuillez s\u00e9lectionner au moins un service.",
+        "stationRequired": "Veuillez s\u00e9lectionner une station.",
+        "contextNotLoaded": "Contexte utilisateur non charg\u00e9. Veuillez actualiser la page.",
+        "submit": "Impossible de cr\u00e9er les demandes de services."
+      }
+    }
   }
 }
