@@ -1,5 +1,5 @@
 import { EfficyApiClient, type EfficyBean } from "./efficyApiClient";
-import { HttpClient, resolveApiBaseUrl } from "./httpClient";
+import { HttpClient, HttpError, resolveApiBaseUrl } from "./httpClient";
 import type {
   EfficyBrokerCreateOpportunityInput,
   EfficyBrokerEnterprise,
@@ -308,19 +308,77 @@ export class BrokersService {
     return readAsRawText(personBean, "PerEntID");
   }
 
+  async fetchCurrentUserOpportunities(): Promise<{ personId: string; opportunities: EfficyBrokerOpportunityWithDisplay[] }> {
+    const personId = await this.apiClient.getCurrentUserPersonId();
+    if (!personId) {
+      return { personId: "", opportunities: [] };
+    }
+
+    const personBean = await this.apiClient.getPersonById(personId);
+    const enterpriseIds = personBean
+      ? Array.from(
+          new Set([
+            ...readAsRawArray(personBean, "PerEntID"),
+            readAsRawText(personBean, "PerEntID"),
+          ].filter(Boolean)),
+        )
+      : [];
+
+    if (enterpriseIds.length > 0) {
+      const enterpriseOpportunities = await this.fetchOpportunitiesForEnterpriseIds(enterpriseIds);
+      const personScopedOpportunities = enterpriseOpportunities.filter(
+        (opportunity) => opportunity.OppPerID === personId,
+      );
+
+      return {
+        personId,
+        opportunities: personScopedOpportunities,
+      };
+    }
+
+    return {
+      personId,
+      opportunities: await this.fetchOpportunitiesByFilter(`{{[OppPerID,=,${personId}]}}`),
+    };
+  }
+
+  private async fetchOpportunitiesForEnterpriseIds(
+    enterpriseIds: string[],
+  ): Promise<EfficyBrokerOpportunityWithDisplay[]> {
+    const uniqueEnterpriseIds = Array.from(new Set(enterpriseIds.filter(Boolean)));
+    if (uniqueEnterpriseIds.length === 0) {
+      return [];
+    }
+
+    if (uniqueEnterpriseIds.length === 1) {
+      return this.fetchOpportunitiesByFilter(`{{[OppEntID,=,${uniqueEnterpriseIds[0]}]}}`);
+    }
+
+    return this.fetchOpportunitiesByFilter(`{{[OppEntID,in,(${uniqueEnterpriseIds.join(",")})]}}`);
+  }
+
   async fetchBrokerOpportunities(courtierEntId: string): Promise<EfficyBrokerOpportunityWithDisplay[]> {
     if (!courtierEntId) {
       return [];
     }
 
-    const filter = encodeURIComponent(`{{[OppCourtier_,=,${courtierEntId}]}}`);
-    const restrictTo = encodeURIComponent(
-      "{OppEntID,OppPerID,OppStoID,OppStuID,OppTitle,OppDate,OppNumRef,OppGammeShouhaitee_,OppOpbID,OppNivSouhaite_,OppRegimeAssurance_,OppStake,OppDetail}",
-    );
+    return this.fetchOpportunitiesByFilter(`{{[OppCourtier_,=,${courtierEntId}]}}`);
+  }
 
-    const response = await this.httpClient.get<unknown>(
-      `/base/Opportunity?filter=${filter}&restrict_to=${restrictTo}&nb_of_result=${MAX_RESULTS}`,
-    );
+  private async fetchOpportunitiesByFilter(filterExpression: string): Promise<EfficyBrokerOpportunityWithDisplay[]> {
+    const filter = encodeURIComponent(filterExpression);
+    const query = `Opportunity?filter=${filter}&nb_of_result=${MAX_RESULTS}`;
+
+    let response: unknown;
+    try {
+      response = await this.httpClient.get<unknown>(`/advanced/${query}`);
+    } catch (error) {
+      if (!(error instanceof HttpError)) {
+        throw error;
+      }
+
+      response = await this.httpClient.get<unknown>(`/base/${query}`);
+    }
 
     const rows = readQueryRows(response);
     return Promise.all(rows.map((row) => this.toDisplayOpportunity(toBean(row))));
@@ -393,25 +451,40 @@ export class BrokersService {
   }
 
   async createOpportunityWithCourtier(input: EfficyBrokerCreateOpportunityInput): Promise<void> {
-    await this.httpClient.post<unknown>(
-      "/base/Opportunity",
-      {
-        data: {
-          bean_data: {
-            OppTitle: input.title,
-            OppDetail: input.detail,
-            OppEntID: input.enterpriseId,
-            OppPerID: input.personId,
-            OppStoID: input.stateId,
-            OppOpbID: input.probabilityId,
-            OppDate: input.signDate,
-            OppStake: input.amount,
-            OppGammeShouhaitee_: input.gammeIds,
-            OppCourtier_: input.courtierEntId,
-          },
+    const body = {
+      data: {
+        bean_data: {
+          OppTitle: input.title,
+          OppDetail: input.detail,
+          OppEntID: input.enterpriseId,
+          OppPerID: input.personId,
+          OppStoID: input.stateId,
+          OppOpbID: input.probabilityId,
+          OppDate: input.signDate,
+          OppStake: input.amount,
+          OppGammeShouhaitee_: input.gammeIds,
+          OppCourtier_: input.courtierEntId,
         },
       },
-    );
+    };
+
+    const MAX_ATTEMPTS = 3;
+    const RETRY_DELAY_MS = 500;
+
+    let lastError: unknown;
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+      try {
+        await this.httpClient.post<unknown>("/base/Opportunity", body);
+        return;
+      } catch (error) {
+        lastError = error;
+        if (attempt < MAX_ATTEMPTS) {
+          await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
+        }
+      }
+    }
+
+    throw lastError;
   }
 
   private async toDisplayOpportunity(bean: EfficyBean): Promise<EfficyBrokerOpportunityWithDisplay> {

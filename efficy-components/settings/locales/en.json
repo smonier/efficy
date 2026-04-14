@@ -308,6 +308,40 @@
       }
     }
   },
+  "userOpportunities": {
+    "title": "My opportunities",
+    "loading": "Loading opportunities...",
+    "empty": "No opportunity found for this profile.",
+    "noProfile": "No Efficy person profile found for the logged user.",
+    "table": {
+      "number": "Number",
+      "title": "Title",
+      "enterprise": "Enterprise",
+      "person": "Person",
+      "status": "Status",
+      "state": "State",
+      "signDate": "Sign date",
+      "probability": "Probability",
+      "stake": "Stake",
+      "gamme": "Gamme",
+      "actions": "Actions"
+    },
+    "details": {
+      "main": "Opportunity details",
+      "protectionLevel": "Protection level",
+      "insuranceScheme": "Insurance scheme",
+      "description": "Description"
+    },
+    "charts": {
+      "title": "Visual insights for my opportunities",
+      "stakeByStatus": "Stake by status",
+      "monthlyDynamics": "Monthly dynamics",
+      "stakeSeries": "Stake",
+      "countSeries": "Opportunity count",
+      "stakeAxis": "Stake (EUR)",
+      "countAxis": "Count"
+    }
+  },
   "efficy": {
     "newOpportunity": {
       "title": "New Opportunity",

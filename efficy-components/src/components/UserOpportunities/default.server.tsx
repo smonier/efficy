@@ -4,9 +4,8 @@ import {
   buildModuleFileUrl,
   jahiaComponent,
 } from "@jahia/javascript-modules-library";
-import BrokerBusinessPortfolioIsland from "./BrokerBusinessPortfolio.island.client";
-import type { BrokerBusinessPortfolioComponentProps, BrokerBusinessPortfolioIslandProps } from "./types";
-import classes from "./BrokerBusinessPortfolio.module.css";
+import BrokerBusinessPortfolioIsland from "../BrokerBusinessPortfolio/BrokerBusinessPortfolio.island.client";
+import type { UserOpportunitiesComponentProps, UserOpportunitiesIslandProps } from "./types";
 
 const DEFAULT_PAGE_SIZE = 10;
 const API_BASE_PATH = "/modules/efficy-service/api/v1";
@@ -23,16 +22,16 @@ function toPositiveInt(value: number | string | undefined): number {
 export default jahiaComponent(
   {
     componentType: "view",
-    nodeType: "efficycomponents:brokerBusinessPortfolio",
+    nodeType: "efficycomponents:userOpportunities",
     name: "default",
-    displayName: "Portefeuille Affaires",
+    displayName: "Mes opportunites",
   },
-  (props: BrokerBusinessPortfolioComponentProps) => {
-    const islandProps: BrokerBusinessPortfolioIslandProps = {
+  (props: UserOpportunitiesComponentProps) => {
+    const islandProps: UserOpportunitiesIslandProps = {
       title: props["jcr:title"]?.trim() || "",
       pageSize: toPositiveInt(props.pageSize),
       apiBasePath: API_BASE_PATH,
-      scope: "broker",
+      scope: "currentUser",
     };
 
     return (

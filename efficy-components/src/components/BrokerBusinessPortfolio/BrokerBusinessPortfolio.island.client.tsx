@@ -103,6 +103,7 @@ export default function BrokerBusinessPortfolioIsland({
   title,
   pageSize,
   apiBasePath,
+  scope = "broker",
 }: BrokerBusinessPortfolioIslandProps) {
   const { t, i18n } = useTranslation();
   const brokersService = useMemo(() => new BrokersService(apiBasePath), [apiBasePath]);
@@ -117,8 +118,14 @@ export default function BrokerBusinessPortfolioIsland({
   const [page, setPage] = useState(1);
   const [showCharts, setShowCharts] = useState(false);
 
-  const resolvedTitle = title || t("broker.businessPortfolio.title");
+  const isCurrentUserScope = scope === "currentUser";
+  const translationBase = isCurrentUserScope ? "userOpportunities" : "broker.businessPortfolio";
+  const portfolioKey = (suffix: string) => `${translationBase}.${suffix}`;
+  const resolvedTitle = title || t(portfolioKey("title"));
   const dateLocale = i18n.resolvedLanguage || i18n.language || "fr-FR";
+  const chartDialogTitleId = isCurrentUserScope
+    ? "current-user-opportunities-charts-title"
+    : "broker-business-charts-title";
 
   useEffect(() => {
     if (!showCharts) {
@@ -141,16 +148,29 @@ export default function BrokerBusinessPortfolioIsland({
     setInfoMessage(null);
 
     try {
-      const brokerEnterpriseId = await brokersService.resolveCurrentBrokerEnterpriseId();
-      if (!brokerEnterpriseId) {
-        setRows([]);
-        setInfoMessage(t("broker.common.noBrokerProfile"));
-        setState("loaded");
-        return;
+      if (isCurrentUserScope) {
+        const { personId, opportunities } = await brokersService.fetchCurrentUserOpportunities();
+        if (!personId) {
+          setRows([]);
+          setInfoMessage(t("userOpportunities.noProfile"));
+          setState("loaded");
+          return;
+        }
+
+        setRows(opportunities);
+      } else {
+        const brokerEnterpriseId = await brokersService.resolveCurrentBrokerEnterpriseId();
+        if (!brokerEnterpriseId) {
+          setRows([]);
+          setInfoMessage(t("broker.common.noBrokerProfile"));
+          setState("loaded");
+          return;
+        }
+
+        const data = await brokersService.fetchBrokerOpportunities(brokerEnterpriseId);
+        setRows(data);
       }
 
-      const data = await brokersService.fetchBrokerOpportunities(brokerEnterpriseId);
-      setRows(data);
       setPage(1);
       setShowCharts(false);
       setState("loaded");
@@ -159,7 +179,7 @@ export default function BrokerBusinessPortfolioIsland({
       setErrorMessage(nextMessage);
       setState("error");
     }
-  }, [brokersService, t]);
+  }, [brokersService, isCurrentUserScope, t]);
 
   useEffect(() => {
     void loadPortfolio();
@@ -264,7 +284,7 @@ export default function BrokerBusinessPortfolioIsland({
       labels: statusStakeDistribution.labels,
       datasets: [
         {
-          label: t("broker.businessPortfolio.charts.stakeSeries"),
+          label: t(portfolioKey("charts.stakeSeries")),
           data: statusStakeDistribution.values,
           borderRadius: 8,
           maxBarThickness: 48,
@@ -281,7 +301,7 @@ export default function BrokerBusinessPortfolioIsland({
       datasets: [
         {
           type: "line" as const,
-          label: t("broker.businessPortfolio.charts.countSeries"),
+          label: t(portfolioKey("charts.countSeries")),
           data: monthlyTrend.countValues,
           borderColor: "rgba(62, 127, 210, 0.92)",
           backgroundColor: "rgba(62, 127, 210, 0.18)",
@@ -292,7 +312,7 @@ export default function BrokerBusinessPortfolioIsland({
         },
         {
           type: "line" as const,
-          label: t("broker.businessPortfolio.charts.stakeSeries"),
+          label: t(portfolioKey("charts.stakeSeries")),
           data: monthlyTrend.stakeValues,
           borderColor: "rgba(255, 161, 113, 0.95)",
           backgroundColor: "rgba(255, 161, 113, 0.2)",
@@ -358,7 +378,7 @@ export default function BrokerBusinessPortfolioIsland({
           position: "left",
           title: {
             display: true,
-            text: t("broker.businessPortfolio.charts.stakeAxis"),
+            text: t(portfolioKey("charts.stakeAxis")),
           },
           ticks: {
             callback: (value) => formatMoney(Number(value), dateLocale),
@@ -369,7 +389,7 @@ export default function BrokerBusinessPortfolioIsland({
           position: "right",
           title: {
             display: true,
-            text: t("broker.businessPortfolio.charts.countAxis"),
+            text: t(portfolioKey("charts.countAxis")),
           },
           grid: {
             drawOnChartArea: false,
@@ -399,64 +419,64 @@ export default function BrokerBusinessPortfolioIsland({
         </header>
 
         <section className={classes.detailSection}>
-          <h4 className={classes.detailSectionTitle}>{t("broker.businessPortfolio.details.main")}</h4>
+          <h4 className={classes.detailSectionTitle}>{t(portfolioKey("details.main"))}</h4>
           <div className={classes.detailInfoGrid}>
             <div className={classes.detailInfoItem}>
-              <span>{t("broker.businessPortfolio.table.number")}</span>
+              <span>{t(portfolioKey("table.number"))}</span>
               <strong>{selectedOpportunity.OppNumRef || "-"}</strong>
             </div>
             <div className={classes.detailInfoItem}>
-              <span>{t("broker.businessPortfolio.table.title")}</span>
+              <span>{t(portfolioKey("table.title"))}</span>
               <strong>{selectedOpportunity.OppTitle || "-"}</strong>
             </div>
             <div className={classes.detailInfoItem}>
-              <span>{t("broker.businessPortfolio.table.enterprise")}</span>
+              <span>{t(portfolioKey("table.enterprise"))}</span>
               <strong>{selectedOpportunity.enterpriseName || "-"}</strong>
             </div>
             <div className={classes.detailInfoItem}>
-              <span>{t("broker.businessPortfolio.table.person")}</span>
+              <span>{t(portfolioKey("table.person"))}</span>
               <strong>
                 {selectedOpportunity.personName || "-"}
                 {selectedOpportunity.personPosition ? ` (${selectedOpportunity.personPosition})` : ""}
               </strong>
             </div>
             <div className={classes.detailInfoItem}>
-              <span>{t("broker.businessPortfolio.table.status")}</span>
+              <span>{t(portfolioKey("table.status"))}</span>
               <strong>{selectedOpportunity.statusLabel || "-"}</strong>
             </div>
             <div className={classes.detailInfoItem}>
-              <span>{t("broker.businessPortfolio.table.state")}</span>
+              <span>{t(portfolioKey("table.state"))}</span>
               <strong>{selectedOpportunity.stateLabel || "-"}</strong>
             </div>
             <div className={classes.detailInfoItem}>
-              <span>{t("broker.businessPortfolio.table.signDate")}</span>
+              <span>{t(portfolioKey("table.signDate"))}</span>
               <strong>{formatDate(selectedOpportunity.OppDate, dateLocale)}</strong>
             </div>
             <div className={classes.detailInfoItem}>
-              <span>{t("broker.businessPortfolio.table.probability")}</span>
+              <span>{t(portfolioKey("table.probability"))}</span>
               <strong>{selectedOpportunity.probability}%</strong>
             </div>
             <div className={classes.detailInfoItem}>
-              <span>{t("broker.businessPortfolio.table.stake")}</span>
+              <span>{t(portfolioKey("table.stake"))}</span>
               <strong>{formatMoney(selectedOpportunity.OppStake, dateLocale)}</strong>
             </div>
             <div className={classes.detailInfoItem}>
-              <span>{t("broker.businessPortfolio.table.gamme")}</span>
+              <span>{t(portfolioKey("table.gamme"))}</span>
               <strong>{selectedOpportunity.gammeLabels.join(", ") || "-"}</strong>
             </div>
             <div className={classes.detailInfoItem}>
-              <span>{t("broker.businessPortfolio.details.protectionLevel")}</span>
+              <span>{t(portfolioKey("details.protectionLevel"))}</span>
               <strong>{selectedOpportunity.protectionLevelLabel || "-"}</strong>
             </div>
             <div className={classes.detailInfoItem}>
-              <span>{t("broker.businessPortfolio.details.insuranceScheme")}</span>
+              <span>{t(portfolioKey("details.insuranceScheme"))}</span>
               <strong>{selectedOpportunity.insuranceSchemeLabel || "-"}</strong>
             </div>
           </div>
         </section>
 
         <section className={classes.detailSection}>
-          <h4 className={classes.detailSectionTitle}>{t("broker.businessPortfolio.details.description")}</h4>
+          <h4 className={classes.detailSectionTitle}>{t(portfolioKey("details.description"))}</h4>
           <p className={classes.detailDescription}>{selectedOpportunity.OppDetail || "-"}</p>
         </section>
       </section>
@@ -495,15 +515,15 @@ export default function BrokerBusinessPortfolioIsland({
       {showCharts && (
         <div className={classes.dialogBackdrop} onClick={() => setShowCharts(false)} role="presentation">
           <section
-            aria-labelledby="broker-business-charts-title"
+            aria-labelledby={chartDialogTitleId}
             aria-modal="true"
             className={classes.dialogPanel}
             onClick={(event) => event.stopPropagation()}
             role="dialog"
           >
             <header className={classes.dialogHeader}>
-              <h3 className={classes.dialogTitle} id="broker-business-charts-title">
-                {t("broker.businessPortfolio.charts.title")}
+              <h3 className={classes.dialogTitle} id={chartDialogTitleId}>
+                {t(portfolioKey("charts.title"))}
               </h3>
               <button className={classes.secondaryButton} onClick={() => setShowCharts(false)} type="button">
                 {t("broker.common.actions.cancel")}
@@ -512,7 +532,7 @@ export default function BrokerBusinessPortfolioIsland({
 
             <div className={classes.chartGrid}>
               <article className={classes.chartCard}>
-                <h4 className={classes.chartTitle}>{t("broker.businessPortfolio.charts.stakeByStatus")}</h4>
+                <h4 className={classes.chartTitle}>{t(portfolioKey("charts.stakeByStatus"))}</h4>
                 <div className={classes.chartCanvas}>
                   {statusStakeDistribution.values.length > 0 ? (
                     <Bar data={stakeByStatusData} options={stakeChartOptions} />
@@ -523,7 +543,7 @@ export default function BrokerBusinessPortfolioIsland({
               </article>
 
               <article className={classes.chartCard}>
-                <h4 className={classes.chartTitle}>{t("broker.businessPortfolio.charts.monthlyDynamics")}</h4>
+                <h4 className={classes.chartTitle}>{t(portfolioKey("charts.monthlyDynamics"))}</h4>
                 <div className={classes.chartCanvas}>
                   {monthlyTrend.labels.length > 0 ? (
                     <Line data={monthlyTrendData} options={monthlyTrendOptions} />
@@ -540,7 +560,7 @@ export default function BrokerBusinessPortfolioIsland({
       {state === "loading" && (
         <div className={classes.loadingState}>
           <span className={classes.spinner} aria-hidden="true" />
-          <span>{t("broker.businessPortfolio.loading")}</span>
+          <span>{t(portfolioKey("loading"))}</span>
         </div>
       )}
 
@@ -559,7 +579,7 @@ export default function BrokerBusinessPortfolioIsland({
       )}
 
       {state === "loaded" && rows.length === 0 && (
-        <div className={classes.emptyState}>{infoMessage || t("broker.businessPortfolio.empty")}</div>
+        <div className={classes.emptyState}>{infoMessage || t(portfolioKey("empty"))}</div>
       )}
 
       {state === "loaded" && rows.length > 0 && (
@@ -570,7 +590,7 @@ export default function BrokerBusinessPortfolioIsland({
                 <tr>
                   <th>
                     <button className={classes.sortableHeader} onClick={() => updateSort("OppNumRef")} type="button">
-                      {t("broker.businessPortfolio.table.number")}
+                      {t(portfolioKey("table.number"))}
                       <span className={classes.sortIcon} aria-hidden="true">
                         ↕
                       </span>
@@ -578,7 +598,7 @@ export default function BrokerBusinessPortfolioIsland({
                   </th>
                   <th>
                     <button className={classes.sortableHeader} onClick={() => updateSort("OppTitle")} type="button">
-                      {t("broker.businessPortfolio.table.title")}
+                      {t(portfolioKey("table.title"))}
                       <span className={classes.sortIcon} aria-hidden="true">
                         ↕
                       </span>
@@ -586,7 +606,7 @@ export default function BrokerBusinessPortfolioIsland({
                   </th>
                   <th>
                     <button className={classes.sortableHeader} onClick={() => updateSort("statusLabel")} type="button">
-                      {t("broker.businessPortfolio.table.status")}
+                      {t(portfolioKey("table.status"))}
                       <span className={classes.sortIcon} aria-hidden="true">
                         ↕
                       </span>
@@ -594,7 +614,7 @@ export default function BrokerBusinessPortfolioIsland({
                   </th>
                   <th>
                     <button className={classes.sortableHeader} onClick={() => updateSort("OppDate")} type="button">
-                      {t("broker.businessPortfolio.table.signDate")}
+                      {t(portfolioKey("table.signDate"))}
                       <span className={classes.sortIcon} aria-hidden="true">
                         ↕
                       </span>
@@ -602,7 +622,7 @@ export default function BrokerBusinessPortfolioIsland({
                   </th>
                   <th>
                     <button className={classes.sortableHeader} onClick={() => updateSort("probability")} type="button">
-                      {t("broker.businessPortfolio.table.probability")}
+                      {t(portfolioKey("table.probability"))}
                       <span className={classes.sortIcon} aria-hidden="true">
                         ↕
                       </span>
@@ -610,14 +630,14 @@ export default function BrokerBusinessPortfolioIsland({
                   </th>
                   <th>
                     <button className={classes.sortableHeader} onClick={() => updateSort("OppStake")} type="button">
-                      {t("broker.businessPortfolio.table.stake")}
+                      {t(portfolioKey("table.stake"))}
                       <span className={classes.sortIcon} aria-hidden="true">
                         ↕
                       </span>
                     </button>
                   </th>
-                  <th>{t("broker.businessPortfolio.table.gamme")}</th>
-                  <th>{t("broker.businessPortfolio.table.actions")}</th>
+                  <th>{t(portfolioKey("table.gamme"))}</th>
+                  <th>{t(portfolioKey("table.actions"))}</th>
                 </tr>
               </thead>
               <tbody>

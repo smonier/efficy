@@ -308,6 +308,40 @@
       }
     }
   },
+  "userOpportunities": {
+    "title": "Mes opportunit\u00e9s",
+    "loading": "Chargement des opportunit\u00e9s...",
+    "empty": "Aucune opportunit\u00e9 trouv\u00e9e pour ce profil.",
+    "noProfile": "Aucun profil personne Efficy trouv\u00e9 pour l'utilisateur connect\u00e9.",
+    "table": {
+      "number": "Num\u00e9ro",
+      "title": "Titre",
+      "enterprise": "Entreprise",
+      "person": "Personne",
+      "status": "Statut",
+      "state": "\u00c9tat",
+      "signDate": "Date de signature",
+      "probability": "Probabilit\u00e9",
+      "stake": "Montant",
+      "gamme": "Gamme",
+      "actions": "Actions"
+    },
+    "details": {
+      "main": "D\u00e9tails de l'opportunit\u00e9",
+      "protectionLevel": "Niveau de protection",
+      "insuranceScheme": "R\u00e9gime d'assurance",
+      "description": "Description"
+    },
+    "charts": {
+      "title": "Vue graphique de mes opportunit\u00e9s",
+      "stakeByStatus": "Montant par statut",
+      "monthlyDynamics": "Dynamique mensuelle",
+      "stakeSeries": "Montant",
+      "countSeries": "Nombre d'opportunit\u00e9s",
+      "stakeAxis": "Montant (EUR)",
+      "countAxis": "Nombre"
+    }
+  },
   "efficy": {
     "newOpportunity": {
       "title": "Nouvelle Opportunit\u00e9",

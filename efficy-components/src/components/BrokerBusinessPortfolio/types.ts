@@ -7,4 +7,5 @@ export interface BrokerBusinessPortfolioIslandProps {
   title: string;
   pageSize: number;
   apiBasePath: string;
+  scope?: "broker" | "currentUser";
 }
