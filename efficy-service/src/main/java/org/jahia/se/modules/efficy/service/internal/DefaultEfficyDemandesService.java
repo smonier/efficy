@@ -78,8 +78,13 @@ public class DefaultEfficyDemandesService implements EfficyDemandesService {
                                                           String authorizationHeader,
                                                           String userEmail) throws IOException {
         String filter = URLEncoder.encode("{{[DmdPerID,=," + personId + "]}}", StandardCharsets.UTF_8);
+        // DmdRealCrDt is the date the request was actually raised; DmdCrDt is the date the row
+        // was inserted, and Efficy stamps it itself - it cannot be set through the API, so on any
+        // instance whose history was loaded rather than accumulated the two differ. The portal
+        // prefers DmdRealCrDt when it carries a value and falls back to DmdCrDt, which is correct
+        // on a live instance too, where only DmdCrDt is populated.
         String restrictTo = URLEncoder.encode(
-                "{DmdID,DmdToken,DmdStatus,DmdActID,DmdCrDt,DmdDescription,DmdPriority,DmdQualifID,DmdAttID}",
+                "{DmdID,DmdToken,DmdStatus,DmdActID,DmdCrDt,DmdRealCrDt,DmdDescription,DmdPriority,DmdQualifID,DmdAttID}",
                 StandardCharsets.UTF_8
         );
 
