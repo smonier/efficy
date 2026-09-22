@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { KnowledgeBaseService } from "../../services/knowledgeBaseService";
 import type { EfficyFaq } from "../../services/models";
+import { crmHtmlToText, sanitizeCrmHtml } from "../../lib/sanitizeHtml";
 import type { KnowledgeBaseIslandProps } from "./types";
 import classes from "./KnowledgeBase.module.css";
 
@@ -36,21 +37,27 @@ function decodeHtmlEntities(value: string): string {
   });
 }
 
-function stripHtml(value: string): string {
-  return value.replace(/<[^>]*>/g, " ");
-}
-
+/**
+ * The answer as the visitor will read it, sanitised.
+ *
+ * An answer is authored in the CRM and arrives as a whole HTML document, `<head>` and all. It
+ * used to be decoded and handed straight to dangerouslySetInnerHTML, which let an article bring
+ * its own `<style>` — several of the real ones open with
+ * `:root{--bg;--primary;--ink;--soft}` — and repaint the component around it. See
+ * src/lib/sanitizeHtml.ts.
+ *
+ * A body with no markup at all is still turned into paragraphs first, so a plain-text answer
+ * does not collapse onto one line.
+ */
 function toDisplayHtml(value: string): string {
   const decoded = decodeHtmlEntities(value).trim();
   if (!decoded) {
     return "";
   }
 
-  if (/<[a-z][\s\S]*>/i.test(decoded)) {
-    return decoded;
-  }
+  const markup = /<[a-z][\s\S]*>/i.test(decoded) ? decoded : decoded.replace(/\n/g, "<br />");
 
-  return decoded.replace(/\n/g, "<br />");
+  return sanitizeCrmHtml(markup);
 }
 
 export default function KnowledgeBaseIsland({ title, apiBasePath }: KnowledgeBaseIslandProps) {
@@ -109,7 +116,7 @@ export default function KnowledgeBaseIsland({ title, apiBasePath }: KnowledgeBas
       }
 
       const titleText = decodeHtmlEntities(faq.title).toLowerCase();
-      const responseText = stripHtml(decodeHtmlEntities(faq.response)).toLowerCase();
+      const responseText = crmHtmlToText(decodeHtmlEntities(faq.response)).toLowerCase();
       const tagsText = faq.tags.join(" ").toLowerCase();
 
       return titleText.includes(normalizedQuery)
@@ -250,7 +257,9 @@ export default function KnowledgeBaseIsland({ title, apiBasePath }: KnowledgeBas
                   <div className={classes.answer}>
                     {answerHtml ? (
                       <div
-                        // FAQ content is authored in Efficy and intended to render rich text.
+                        // Authored in Efficy, sanitised above: allowed tags only, no style, no
+                        // script, no frame. CRM content is data, never markup we trust.
+                        // eslint-disable-next-line @eslint-react/dom/no-dangerously-set-innerhtml
                         dangerouslySetInnerHTML={{ __html: answerHtml }}
                       />
                     ) : (

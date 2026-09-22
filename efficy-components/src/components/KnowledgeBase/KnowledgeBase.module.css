@@ -220,6 +220,73 @@
   margin-top: 0.45rem;
 }
 
+/*
+ * Article content arrives from the CRM stripped of every class, id and style attribute, so
+ * these rules are the only thing giving it shape. `:where` keeps them at zero specificity, so
+ * nothing here can outrank the component's own styling. Headings are shifted to h4 and below by
+ * the sanitiser, which is why the selectors start there.
+ */
+.answer :where(h4) {
+  margin: 0.9rem 0 0.4rem;
+  font-size: 1em;
+  font-weight: 700;
+  color: var(--efficy-primary-token);
+}
+
+.answer :where(h5, h6) {
+  margin: 0.7rem 0 0.3rem;
+  font-size: 0.95em;
+  font-weight: 700;
+}
+
+.answer :where(ul, ol) {
+  margin: 0 0 0.45rem;
+  padding-left: 1.2rem;
+}
+
+.answer :where(li) {
+  margin-bottom: 0.25rem;
+}
+
+.answer :where(a) {
+  color: var(--efficy-primary-token);
+}
+
+.answer :where(strong, b) {
+  font-weight: 700;
+}
+
+.answer :where(img) {
+  max-width: 100%;
+  height: auto;
+}
+
+.answer :where(blockquote) {
+  margin: 0 0 0.45rem;
+  padding-left: 0.8rem;
+  border-left: 3px solid var(--efficy-secondary-border, currentColor);
+}
+
+/* A wide table from the CRM scrolls instead of pushing the card sideways. */
+.answer :where(table) {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+  margin: 0 0 0.45rem;
+  border-collapse: collapse;
+}
+
+.answer :where(th, td) {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--efficy-secondary-border, currentColor);
+  text-align: left;
+}
+
+.answer :where(th) {
+  background: var(--efficy-secondary-bg, transparent);
+  font-weight: 700;
+}
+
 .answerEmpty {
   margin: 0;
   color: inherit;
