@@ -38,6 +38,30 @@ If Jahia runs behind a context path, prepend `window.contextJsParameters.context
   - Looks up `Person` by `PerMail`
 - Response shape: Efficy JSON payload (passthrough, restricted to `PerID`)
 
+### 2c. Domain endpoint for the current tenant
+- `GET /me/tenant`
+- Purpose: describe the signed-in tenant as the housing model does, in one round trip.
+- Behavior:
+  - Backend resolves the Jahia `j:email`, looks up `Person` by `PerMail` (housing fields first,
+    retried with the standard fields on an instance that has no housing customisation)
+  - Follows `PerPrfID_` to the residence (`ProductFamily`), `PerPrdID_` to the dwelling
+    (`Product`), `OppPerID` to the leases (`Opportunity`), and the residence's `PrfActID2_`
+    (chargé de clientèle) and `PrfActID3_` (gestionnaire voisinage) to their `Actor` records
+- Response shape: a composite of Efficy `advanced_data` payloads, each passed through verbatim:
+  ```json
+  {
+    "person":    { ...Efficy response... },
+    "residence": { ...Efficy response... } | null,
+    "dwelling":  { ...Efficy response... } | null,
+    "leases":    { ...Efficy response... } | null,
+    "team":      { "PrfActID2_": { ...Efficy response... }, "PrfActID3_": { ... } },
+    "resolved":  { "personId": "...", "residenceId": "...", "dwellingId": "..." }
+  }
+  ```
+- A part that cannot be read is `null`, never a failure of the whole. `404` only when no
+  person carries the email. The client picks the current lease: the one whose
+  `OppDemLogement_` equals `resolved.dwellingId`, else the one without `OppDateSortie_`.
+
 ### 3. Generic Efficy proxy endpoints
 - `GET|POST|PUT|DELETE /advanced/{efficyPath}`
 - `GET|POST|PUT|DELETE /base/{efficyPath}`

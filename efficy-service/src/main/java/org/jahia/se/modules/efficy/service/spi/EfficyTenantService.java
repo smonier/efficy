@@ -1,0 +1,35 @@
+package org.jahia.se.modules.efficy.service.spi;
+
+import org.jahia.se.modules.efficy.service.model.EfficyGatewayResponse;
+
+import java.io.IOException;
+
+/**
+ * Everything the portal needs to describe the signed-in tenant, in one round trip.
+ *
+ * Resolves the Jahia user to their Efficy {@code Person}, then follows the housing model from
+ * there: the residence ({@code ProductFamily}, via {@code PerPrfID_}), the dwelling
+ * ({@code Product}, via {@code PerPrdID_}), the leases ({@code Opportunity}, via
+ * {@code OppPerID}) and the residence's named contacts ({@code Actor}, via {@code PrfActID2_}
+ * and {@code PrfActID3_}).
+ *
+ * The response is a composite of Efficy's own payloads, passed through untouched under one key
+ * each, so the browser reads them with the same field readers it already uses for every other
+ * Efficy object. A part that cannot be read is {@code null}, never a failure of the whole: an
+ * instance whose Person object carries no housing fields at all still answers with the person.
+ *
+ * Threading: stateless apart from the injected gateway; safe to call from any request thread.
+ */
+public interface EfficyTenantService {
+
+    /**
+     * @param authorizationHeader the caller's Authorization header, forwarded when the gateway
+     *                            is configured to do so; may be {@code null}
+     * @param userEmail           the signed-in Jahia user's email, matched against {@code PerMail}
+     * @return 200 with the composite body, 404 when no Efficy person carries that email
+     * @throws IOException              when Efficy cannot be reached at all
+     * @throws IllegalArgumentException when the email is missing or malformed
+     */
+    EfficyGatewayResponse fetchCurrentUserTenant(String authorizationHeader,
+                                                 String userEmail) throws IOException;
+}

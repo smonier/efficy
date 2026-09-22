@@ -9,6 +9,7 @@ import org.jahia.se.modules.efficy.service.model.EfficyResourceType;
 import org.jahia.se.modules.efficy.service.spi.EfficyAuthenticationService;
 import org.jahia.se.modules.efficy.service.spi.EfficyDemandesService;
 import org.jahia.se.modules.efficy.service.spi.EfficyGatewayService;
+import org.jahia.se.modules.efficy.service.spi.EfficyTenantService;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -43,6 +44,9 @@ public class EfficyApiServlet extends AbstractServletFilter {
 
     @Reference
     private EfficyDemandesService demandesService;
+
+    @Reference
+    private EfficyTenantService tenantService;
 
     @Activate
     protected void activate() {
@@ -84,6 +88,11 @@ public class EfficyApiServlet extends AbstractServletFilter {
                 return;
             }
 
+            if ("/me/tenant".equals(route) && "GET".equalsIgnoreCase(request.getMethod())) {
+                handleCurrentTenant(request, response);
+                return;
+            }
+
             if (route.startsWith("/advanced/") || route.startsWith("/base/") || route.startsWith("/service/")) {
                 handleProxy(request, response, route);
                 return;
@@ -122,6 +131,23 @@ public class EfficyApiServlet extends AbstractServletFilter {
         String userEmail = readUserEmail(request);
 
         EfficyGatewayResponse gatewayResponse = demandesService.fetchCurrentUserPerson(
+                authorization,
+                userEmail
+        );
+
+        writeGatewayResponse(response, gatewayResponse);
+    }
+
+    /**
+     * The signed-in tenant with their residence, dwelling, leases and named contacts, in one call.
+     * See {@link EfficyTenantService} for the shape and the degradation rules.
+     */
+    private void handleCurrentTenant(HttpServletRequest request,
+                                     HttpServletResponse response) throws IOException {
+        String authorization = authenticationService.resolveAuthorizationHeader(request);
+        String userEmail = readUserEmail(request);
+
+        EfficyGatewayResponse gatewayResponse = tenantService.fetchCurrentUserTenant(
                 authorization,
                 userEmail
         );
