@@ -263,6 +263,7 @@ public class EfficyApiServlet extends AbstractServletFilter {
     private void writeGatewayResponse(HttpServletResponse response,
                                       EfficyGatewayResponse gatewayResponse) throws IOException {
         response.setStatus(gatewayResponse.getStatus());
+        forbidCaching(response);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.setContentType(gatewayResponse.getContentType());
         response.getWriter().write(gatewayResponse.getBody());
@@ -272,9 +273,25 @@ public class EfficyApiServlet extends AbstractServletFilter {
                            int status,
                            String payload) throws IOException {
         response.setStatus(status);
+        forbidCaching(response);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(payload);
+    }
+
+    /**
+     * Every answer from this gateway is about one signed-in tenant, so none of it may be held
+     * by a shared cache. Without this, the platform's front cache applied its page defaults to
+     * these responses - observed on the demonstration environment as
+     * {@code cache-control: public, must-revalidate, max-age=1, s-maxage=600} on
+     * {@code /me/demandes}: a tenant's request list held for ten minutes, keyed by URL. That is
+     * both the stale list a tenant sees after filing a request and a cross-tenant exposure.
+     */
+    private static void forbidCaching(HttpServletResponse response) {
+        response.setHeader("Cache-Control", "no-store, private, max-age=0");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
+        response.setHeader("Vary", "Cookie");
     }
 
     private void writeJsonError(HttpServletResponse response,

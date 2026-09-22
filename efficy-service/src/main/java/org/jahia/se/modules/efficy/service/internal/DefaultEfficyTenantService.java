@@ -50,7 +50,7 @@ public class DefaultEfficyTenantService implements EfficyTenantService {
             "{PerID,PerCivID,PerFstName,PerName,PerMail,PerPhone,PerMobile,PerNumClient}";
     private static final String RESIDENCE_FIELDS =
             "{PrfID,PrfTitle,PrfCode,PrfAd1_,PrfAd2_,PrfAd3_,PrfZip_,PrfCity_,PrfNbNiveaux_,"
-                    + "PrfNbLogements_,PrfNbMontees_,PrfPresEqSpec_,PrfActID2_,PrfActID3_}";
+                    + "PrfNbLogements_,PrfNbMontees_,PrfPresEqSpec_,PrfActID,PrfActID2_,PrfActID3_}";
     private static final String DWELLING_FIELDS =
             "{PrdID,PrdName,PrdCode,PrdFamilyID,PrdTl_ID_,PrdNbBedrooms_,PrdSurface_,PrdEtage_,"
                     + "PrdAscenseur_,PrdModeChauffage_,PrdTypeChauffage_,PrdAccessibilitePMR_,"
@@ -67,11 +67,12 @@ public class DefaultEfficyTenantService implements EfficyTenantService {
 
     /**
      * The residence's named contacts, keyed by the field that names them so the browser knows
-     * which role each one holds: PrfActID2_ is the "Chargé de clientèle", PrfActID3_ the
-     * "Gestionnaire interne voisinage". PerCounselor is deliberately NOT here - it is the CRM
-     * account owner, not someone a tenant is meant to call.
+     * which role each one holds: PrfActID is the residence's "Contact" (the standard field, its
+     * main contact), PrfActID2_ the "Chargé de clientèle", PrfActID3_ the "Gestionnaire interne
+     * voisinage". PerCounselor is deliberately NOT here - it is the CRM account owner, not
+     * someone a tenant is meant to call.
      */
-    private static final String[] TEAM_FIELDS = { "PrfActID2_", "PrfActID3_" };
+    private static final String[] TEAM_FIELDS = { "PrfActID", "PrfActID2_", "PrfActID3_" };
 
     /** More than any tenant has; a bound, not a page. */
     private static final int LEASE_PAGE_SIZE = 20;
