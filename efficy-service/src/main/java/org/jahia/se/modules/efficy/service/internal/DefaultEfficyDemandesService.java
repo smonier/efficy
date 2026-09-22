@@ -43,6 +43,7 @@ public class DefaultEfficyDemandesService implements EfficyDemandesService {
      */
     private static final Pattern DMD_ACTOR_ID_PATTERN = Pattern.compile("\\\"DmdActID\\\"\\s*:\\s*\\{[^}]*?\\\"raw_value\\\"\\s*:\\s*\\\"([^\\\"]+)\\\"");
     private static final Pattern DMD_QUALIF_ID_PATTERN = Pattern.compile("\\\"DmdQualifID\\\"\\s*:\\s*\\{[^}]*?\\\"raw_value\\\"\\s*:\\s*\\\"([^\\\"]+)\\\"");
+    private static final Pattern EXTRANET_LABEL_PATTERN = Pattern.compile("\\\"QulExtranetLabel\\\"\\s*:\\s*\\\"([^\\\"]+)\\\"");
     private static final Pattern BEAN_DISPLAY_PATTERN = Pattern.compile("\\\"bean_display\\\"\\s*:\\s*\\\"([^\\\"]*)\\\"");
 
     /**
@@ -229,7 +230,46 @@ public class DefaultEfficyDemandesService implements EfficyDemandesService {
         }
     }
 
+    /**
+     * The name a tenant should read for a request type.
+     *
+     * Prefers `QulExtranetLabel`, which is the wording written FOR tenants - "Ascenseur bloqué" -
+     * over the qualification's `bean_display`, which is the internal taxonomy path and reads as
+     * "Technique > Ascenseur > Bloqué, sans personne à l'intérieur". A tenant has no use for the
+     * landlord's classification tree, and the third level of it is internal shorthand.
+     *
+     * Falls back to `bean_display` when a qualification has no extranet label, which is the case
+     * for the ones never offered on the portal but still attached to older requests.
+     */
     private String fetchQualificationName(String qualificationId, String authorizationHeader, String userEmail) {
+        String extranetLabel = fetchExtranetLabel(qualificationId, authorizationHeader, userEmail);
+        if (!extranetLabel.isEmpty()) {
+            return extranetLabel;
+        }
+        return fetchQualificationPath(qualificationId, authorizationHeader, userEmail);
+    }
+
+    private String fetchExtranetLabel(String qualificationId, String authorizationHeader, String userEmail) {
+        try {
+            String filter = URLEncoder.encode("{{[QulQualificationID,=," + qualificationId + "]}}",
+                    StandardCharsets.UTF_8);
+            String restrictTo = URLEncoder.encode("{QulExtranetLabel,QulLngID}", StandardCharsets.UTF_8);
+            EfficyGatewayResponse labels = gatewayService.forward(
+                    EfficyResourceType.BASE, "QualificationLabel",
+                    "filter=" + filter + "&restrict_to=" + restrictTo,
+                    "GET", null, authorizationHeader, userEmail);
+
+            if (labels.getStatus() >= 400 || labels.getBody() == null) {
+                return "";
+            }
+            String label = firstMatch(labels.getBody(), EXTRANET_LABEL_PATTERN);
+            return label == null ? "" : decodeJsonString(label);
+        } catch (IOException e) {
+            return "";
+        }
+    }
+
+    private String fetchQualificationPath(String qualificationId, String authorizationHeader, String userEmail) {
         try {
             EfficyGatewayResponse qualification = gatewayService.forward(
                     EfficyResourceType.BASE, "Qualification/" + qualificationId,
