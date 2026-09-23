@@ -10,7 +10,8 @@ import java.io.IOException;
  * Resolves the Jahia user to their Efficy {@code Person}, then follows the housing model from
  * there: the residence ({@code ProductFamily}, via {@code PerPrfID_}), the dwelling
  * ({@code Product}, via {@code PerPrdID_}), the leases ({@code Opportunity}, via
- * {@code OppPerID}) and the residence's named contacts ({@code Actor}, via {@code PrfActID2_}
+ * {@code OppPerID}), the household (every {@code Person} sharing the tenant's {@code PerEntID},
+ * an enterprise of type Foyer) and the residence's named contacts ({@code Actor}, via {@code PrfActID2_}
  * and {@code PrfActID3_}).
  *
  * The response is a composite of Efficy's own payloads, passed through untouched under one key

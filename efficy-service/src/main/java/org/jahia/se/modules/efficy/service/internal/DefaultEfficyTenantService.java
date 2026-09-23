@@ -45,11 +45,20 @@ public class DefaultEfficyTenantService implements EfficyTenantService {
 
     /** The tenant as the housing model describes them. Custom fields end in an underscore. */
     private static final String PERSON_HOUSING_FIELDS =
-            "{PerID,PerCivID,PerFstName,PerName,PerMail,PerPhone,PerMobile,PerNumClient,"
+            "{PerID,PerCivID,PerFstName,PerName,PerMail,PerPhone,PerMobile,PerNumClient,PerEntID,"
                     + "PerType_,PerPrfID_,PerPrdID_,PerPrelevement_,PerImpaye_,PerImpayeDe_,PerDtNaissance_}";
     /** What every Efficy instance can answer, housing customisation or not. */
     private static final String PERSON_STANDARD_FIELDS =
-            "{PerID,PerCivID,PerFstName,PerName,PerMail,PerPhone,PerMobile,PerNumClient}";
+            "{PerID,PerCivID,PerFstName,PerName,PerMail,PerPhone,PerMobile,PerNumClient,PerEntID}";
+    /**
+     * The household: every person attached to the same {@code Enterprise} as the tenant - the
+     * housing model uses an enterprise of type "Foyer" for it. No field carries a role within
+     * the household; {@code PerTitle} ("Locataire") and {@code PerType_} are what there is.
+     */
+    private static final String HOUSEHOLD_FIELDS =
+            "{PerID,PerCivID,PerFstName,PerName,PerTitle,PerType_,PerDtNaissance_,PerMail}";
+    private static final String HOUSEHOLD_STANDARD_FIELDS = "{PerID,PerCivID,PerFstName,PerName,PerTitle,PerMail}";
+    private static final int HOUSEHOLD_PAGE_SIZE = 20;
     private static final String RESIDENCE_FIELDS =
             "{PrfID,PrfTitle,PrfCode,PrfAd1_,PrfAd2_,PrfAd3_,PrfZip_,PrfCity_,PrfNbNiveaux_,"
                     + "PrfNbLogements_,PrfNbMontees_,PrfPresEqSpec_,PrfActID,PrfActID2_,PrfActID3_}";
@@ -121,6 +130,17 @@ public class DefaultEfficyTenantService implements EfficyTenantService {
         String leases = fetchList("Opportunity", "OppPerID", personId, LEASE_FIELDS, LEASE_PAGE_SIZE,
                 authorizationHeader, email);
 
+        String householdId = rawValue(person, "PerEntID");
+        String household = null;
+        if (isEfficyId(householdId)) {
+            household = fetchList("Person", "PerEntID", householdId, HOUSEHOLD_FIELDS, HOUSEHOLD_PAGE_SIZE,
+                    authorizationHeader, email);
+            if (household == null) {
+                household = fetchList("Person", "PerEntID", householdId, HOUSEHOLD_STANDARD_FIELDS,
+                        HOUSEHOLD_PAGE_SIZE, authorizationHeader, email);
+            }
+        }
+
         Map<String, String> team = new LinkedHashMap<>();
         if (residence != null) {
             for (String field : TEAM_FIELDS) {
@@ -135,7 +155,7 @@ public class DefaultEfficyTenantService implements EfficyTenantService {
         }
 
         return new EfficyGatewayResponse(200, JSON_CONTENT_TYPE,
-                compose(person, residence, dwelling, leases, team, personId, residenceId, dwellingId));
+                compose(person, residence, dwelling, leases, household, team, personId, residenceId, dwellingId));
     }
 
     @Override
@@ -219,13 +239,14 @@ public class DefaultEfficyTenantService implements EfficyTenantService {
      * it uses everywhere else. {@code resolved} carries the ids that were followed, so the client
      * can pick the current lease without re-deriving them.
      */
-    private String compose(String person, String residence, String dwelling, String leases,
+    private String compose(String person, String residence, String dwelling, String leases, String household,
                            Map<String, String> team, String personId, String residenceId, String dwellingId) {
         StringBuilder out = new StringBuilder(4096);
         out.append("{\"person\":").append(person.trim());
         out.append(",\"residence\":").append(orNull(residence));
         out.append(",\"dwelling\":").append(orNull(dwelling));
         out.append(",\"leases\":").append(orNull(leases));
+        out.append(",\"household\":").append(orNull(household));
 
         out.append(",\"team\":{");
         boolean first = true;

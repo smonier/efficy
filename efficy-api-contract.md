@@ -45,7 +45,9 @@ If Jahia runs behind a context path, prepend `window.contextJsParameters.context
   - Backend resolves the Jahia `j:email`, looks up `Person` by `PerMail` (housing fields first,
     retried with the standard fields on an instance that has no housing customisation)
   - Follows `PerPrfID_` to the residence (`ProductFamily`), `PerPrdID_` to the dwelling
-    (`Product`), `OppPerID` to the leases (`Opportunity`), and the residence's `PrfActID` (contact), `PrfActID2_`
+    (`Product`), `OppPerID` to the leases (`Opportunity`), `PerEntID` to the household (every
+    `Person` on the same enterprise of type Foyer: `PerID, PerCivID, PerFstName, PerName, PerTitle,
+    PerType_, PerDtNaissance_, PerMail`; the tenant is in the list), and the residence's `PrfActID` (contact), `PrfActID2_`
     (chargé de clientèle) and `PrfActID3_` (gestionnaire voisinage) to their `Actor` records
 - Response shape: a composite of Efficy `advanced_data` payloads, each passed through verbatim:
   ```json
@@ -54,6 +56,7 @@ If Jahia runs behind a context path, prepend `window.contextJsParameters.context
     "residence": { ...Efficy response... } | null,
     "dwelling":  { ...Efficy response... } | null,
     "leases":    { ...Efficy response... } | null,
+    "household": { ...Efficy response... } | null,
     "team":      { "PrfActID": { ...Efficy response... }, "PrfActID2_": { ... }, "PrfActID3_": { ... } },
     "resolved":  { "personId": "...", "residenceId": "...", "dwellingId": "..." }
   }
