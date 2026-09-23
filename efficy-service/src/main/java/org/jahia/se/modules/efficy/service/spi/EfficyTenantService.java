@@ -32,4 +32,27 @@ public interface EfficyTenantService {
      */
     EfficyGatewayResponse fetchCurrentUserTenant(String authorizationHeader,
                                                  String userEmail) throws IOException;
+
+    /**
+     * The signed-in tenant's payments - every {@code Paiement_} whose {@code Pa_Person} is
+     * them - with the requests those payments point at.
+     *
+     * {@code Paiement_} carries a date, an amount, a state ("A régler" / "Réglé"), the lease and
+     * optionally a request ({@code Pa_Demande}). It has no label field: the linked request is the
+     * only place that says what a line is FOR ("Régularisation annuelle des charges"), so each
+     * distinct request is fetched and returned alongside, keyed by its id.
+     *
+     * Efficy returns the rows oldest first and ignores ordering parameters; the whole set is
+     * returned for the client to sort. On an instance that never generated the object the
+     * {@code payments} part is {@code null}, and the person is still answered.
+     *
+     * @param authorizationHeader the caller's Authorization header; may be {@code null}
+     * @param userEmail           the signed-in Jahia user's email, matched against {@code PerMail}
+     * @return 200 with {@code {person, payments, demandes, resolved}}, 404 when no person carries
+     *         that email
+     * @throws IOException              when Efficy cannot be reached at all
+     * @throws IllegalArgumentException when the email is missing or malformed
+     */
+    EfficyGatewayResponse fetchCurrentUserPayments(String authorizationHeader,
+                                                   String userEmail) throws IOException;
 }

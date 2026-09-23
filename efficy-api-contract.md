@@ -62,6 +62,28 @@ If Jahia runs behind a context path, prepend `window.contextJsParameters.context
   person carries the email. The client picks the current lease: the one whose
   `OppDemLogement_` equals `resolved.dwellingId`, else the one without `OppDateSortie_`.
 
+### 2d. Domain endpoint for the current tenant's payments
+- `GET /me/payments`
+- Purpose: every `Paiement_` line of the signed-in tenant, with the requests those lines point at.
+- Behavior:
+  - Resolves the person as `/me/tenant` does, then reads `Paiement_` filtered on `Pa_Person`
+    (`Pa_ID, Pa_Person, Pa_Opportunity_, Pa_Demande, Pa_DatePrelev, Pa_Montant, Pa_Etat, Pa_CrDt, Pa_Upd`)
+  - Fetches each distinct `Pa_Demande` once (`DmdID, DmdToken, DmdStatus, DmdQualifID,
+    DmdDescription, DmdRealCrDt, DmdCrDt`) - `Paiement_` has no label field, the linked request is
+    what says what a line is for
+- Response shape:
+  ```json
+  {
+    "person":   { ...Efficy response... },
+    "payments": { ...Efficy response... } | null,
+    "demandes": { "<DmdID>": { ...Efficy response... } },
+    "resolved": { "personId": "..." }
+  }
+  ```
+- `payments` is `null` on an instance that never generated `Paiement_`; the person is still
+  answered. Rows come oldest first and unordered by anything else - the client sorts. `Pa_Etat`
+  is the "Etat paiement" referential: code `001` "A régler", `002` "Réglé".
+
 ### 3. Generic Efficy proxy endpoints
 - `GET|POST|PUT|DELETE /advanced/{efficyPath}`
 - `GET|POST|PUT|DELETE /base/{efficyPath}`

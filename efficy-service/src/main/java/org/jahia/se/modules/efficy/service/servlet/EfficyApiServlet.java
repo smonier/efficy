@@ -93,6 +93,11 @@ public class EfficyApiServlet extends AbstractServletFilter {
                 return;
             }
 
+            if ("/me/payments".equals(route) && "GET".equalsIgnoreCase(request.getMethod())) {
+                handleCurrentPayments(request, response);
+                return;
+            }
+
             if (route.startsWith("/advanced/") || route.startsWith("/base/") || route.startsWith("/service/")) {
                 handleProxy(request, response, route);
                 return;
@@ -148,6 +153,20 @@ public class EfficyApiServlet extends AbstractServletFilter {
         String userEmail = readUserEmail(request);
 
         EfficyGatewayResponse gatewayResponse = tenantService.fetchCurrentUserTenant(
+                authorization,
+                userEmail
+        );
+
+        writeGatewayResponse(response, gatewayResponse);
+    }
+
+    /** The signed-in tenant's payments and the requests they point at. See {@link EfficyTenantService}. */
+    private void handleCurrentPayments(HttpServletRequest request,
+                                       HttpServletResponse response) throws IOException {
+        String authorization = authenticationService.resolveAuthorizationHeader(request);
+        String userEmail = readUserEmail(request);
+
+        EfficyGatewayResponse gatewayResponse = tenantService.fetchCurrentUserPayments(
                 authorization,
                 userEmail
         );

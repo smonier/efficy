@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -77,6 +79,18 @@ public class DefaultEfficyTenantService implements EfficyTenantService {
     /** More than any tenant has; a bound, not a page. */
     private static final int LEASE_PAGE_SIZE = 20;
 
+    /**
+     * {@code Paiement_} is a custom object (radical {@code Pa_}): a date, an amount, a state and
+     * three links. {@code Pa_Demande} is the one that gives a line a meaning a tenant can read.
+     */
+    private static final String PAYMENT_FIELDS =
+            "{Pa_ID,Pa_Person,Pa_Opportunity_,Pa_Demande,Pa_DatePrelev,Pa_Montant,Pa_Etat,Pa_CrDt,Pa_Upd}";
+    /** What the portal needs of a request a payment points at: what it is about, and its state. */
+    private static final String PAYMENT_DEMANDE_FIELDS =
+            "{DmdID,DmdToken,DmdStatus,DmdQualifID,DmdDescription,DmdRealCrDt,DmdCrDt}";
+    /** Forty years of monthly rent. A bound, not a page: Efficy cannot order, so nothing is cut. */
+    private static final int PAYMENT_PAGE_SIZE = 500;
+
     @Reference
     private EfficyGatewayService gatewayService;
 
@@ -122,6 +136,39 @@ public class DefaultEfficyTenantService implements EfficyTenantService {
 
         return new EfficyGatewayResponse(200, JSON_CONTENT_TYPE,
                 compose(person, residence, dwelling, leases, team, personId, residenceId, dwellingId));
+    }
+
+    @Override
+    public EfficyGatewayResponse fetchCurrentUserPayments(String authorizationHeader,
+                                                          String userEmail) throws IOException {
+        String email = normalizeUserEmail(userEmail);
+
+        String person = fetchPerson(email, authorizationHeader, email);
+        if (person == null) {
+            return customerNotFoundResponse();
+        }
+        String personId = rawValue(person, "PerID");
+        if (!isEfficyId(personId)) {
+            return customerNotFoundResponse();
+        }
+
+        // null on an instance that never generated the object: the person is still answered.
+        String payments = fetchList("Paiement_", "Pa_Person", personId, PAYMENT_FIELDS, PAYMENT_PAGE_SIZE,
+                authorizationHeader, email);
+
+        Map<String, String> demandes = new LinkedHashMap<>();
+        if (payments != null) {
+            for (String demandeId : rawValues(payments, "Pa_Demande")) {
+                String demande = fetchOne("Demande", "DmdID", demandeId, PAYMENT_DEMANDE_FIELDS,
+                        authorizationHeader, email);
+                if (demande != null) {
+                    demandes.put(demandeId, demande);
+                }
+            }
+        }
+
+        return new EfficyGatewayResponse(200, JSON_CONTENT_TYPE,
+                composePayments(person, payments, demandes, personId));
     }
 
     /**
@@ -202,6 +249,28 @@ public class DefaultEfficyTenantService implements EfficyTenantService {
         return out.toString();
     }
 
+    /** Same placement rule as {@link #compose}: Efficy's bodies verbatim, one key each. */
+    private String composePayments(String person, String payments, Map<String, String> demandes,
+                                   String personId) {
+        StringBuilder out = new StringBuilder(8192);
+        out.append("{\"person\":").append(person.trim());
+        out.append(",\"payments\":").append(orNull(payments));
+
+        out.append(",\"demandes\":{");
+        boolean first = true;
+        for (Map.Entry<String, String> entry : demandes.entrySet()) {
+            if (!first) {
+                out.append(',');
+            }
+            first = false;
+            out.append('"').append(entry.getKey()).append("\":").append(entry.getValue().trim());
+        }
+        out.append('}');
+
+        out.append(",\"resolved\":{\"personId\":\"").append(personId).append("\"}}");
+        return out.toString();
+    }
+
     private static String orNull(String body) {
         return body == null ? "null" : body.trim();
     }
@@ -228,6 +297,23 @@ public class DefaultEfficyTenantService implements EfficyTenantService {
                 "\"" + Pattern.quote(field) + "\"\\s*:\\s*\\{[^}]*?\"raw_value\"\\s*:\\s*\"([^\"]+)\"");
         Matcher matcher = pattern.matcher(body);
         return matcher.find() ? matcher.group(1) : "";
+    }
+
+    /**
+     * Every distinct {@code raw_value} a field takes across the rows of a list response, in
+     * order of first appearance, ids only. A field the rows leave empty contributes nothing.
+     */
+    private static Set<String> rawValues(String body, String field) {
+        Pattern pattern = Pattern.compile(
+                "\"" + Pattern.quote(field) + "\"\\s*:\\s*\\{[^}]*?\"raw_value\"\\s*:\\s*\"([^\"]+)\"");
+        Matcher matcher = pattern.matcher(body);
+        Set<String> values = new LinkedHashSet<>();
+        while (matcher.find()) {
+            if (isEfficyId(matcher.group(1))) {
+                values.add(matcher.group(1));
+            }
+        }
+        return values;
     }
 
     private String normalizeUserEmail(String userEmail) {
